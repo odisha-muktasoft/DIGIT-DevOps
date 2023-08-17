@@ -86,6 +86,7 @@ spec:
         {{- end }}
           args:
             {{- include "ingress-nginx.params" . | nindent 12 }}
+            - --default-ssl-certificate=works/mukta-uat.digit.org-tls-certs
           securityContext: {{ include "controller.containerSecurityContext" . | nindent 12 }}
           env:
             - name: POD_NAME
