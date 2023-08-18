@@ -132,7 +132,8 @@ attendance-service:
   attendance-individual-service-integration-required: false
   attendance-staff-service-integration-required: false
   attendance-document-id-verification-required: false
-  attendance-register-open-search-enabled-roles: "SUPERUSER"
+  attendance-register-open-search-enabled-roles: "SUPERUSER,EMPLOYEE"
+  organisation-contact-details-update-topic: organisation.contact.details.update
 
 contract-service:
   tracing-enabled: true
@@ -187,6 +188,7 @@ organisation:
   egov-location-hierarchy-type: "ADMIN"
   works-cbo-url-host: "https:/mukta-uat.digit.org"
   works-cbo-url-endpoint: "/works-shg-app"
+  organisation-contact-details-update-topic: organisation.contact.details.update
   sms-isAdditonalFieldRequired: true
   sms.isAdditonalFieldRequired: true
 
