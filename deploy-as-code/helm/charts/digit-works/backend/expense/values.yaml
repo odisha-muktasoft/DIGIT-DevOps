@@ -98,6 +98,11 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: organisation
+  - name: WORKS_INDIVIDUAL_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: individual
   - name: SMS_ISADDTIONALFIELDREQUIRED
     valueFrom:
       configMapKeyRef:
