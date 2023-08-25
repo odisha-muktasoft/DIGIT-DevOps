@@ -121,7 +121,7 @@ cluster-configs:
 #######------WORKS-----######
 estimate-service:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
   estimate-default-limit: 100
   estimate-search-max-limit: 200
   estimate-workflow-business-service: "ESTIMATE"
@@ -129,7 +129,7 @@ estimate-service:
 
 attendance-service:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
   attendance-register-default-offset: 0
   attendance-register-default-limit: 10
   attendance-register-search-max-limit: 100
@@ -141,7 +141,7 @@ attendance-service:
 
 contract-service:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
   contract-default-offset: 0
   contract-default-limit: 10
   contract-search-max-limit: 50
@@ -151,18 +151,10 @@ contract-service:
   contract-cbo-url-host : "https://mukta.odisha.gov.in"
   contract-cbo-url-endpoint : "/works-shg-app"
 
-# project-management-system:
-#   tracing-enabled: true
-#   java-enable-debug: true
-#   project-default-offset: 0
-#   project-default-limit: 100
-#   project-search-max-limit: 200
-#   project-mdms-module: "works"
-#   egov-location-hierarchy-type: "ADMIN"
 
 project:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
   project-default-offset: 0
   project-default-limit: 100
   project-search-max-limit: 200
@@ -171,7 +163,7 @@ project:
 
 muster-roll-service:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
   musterroll-default-offset: 0
   musterroll-default-limit: 100
   musterroll-search-max-limit: 200
@@ -186,7 +178,7 @@ muster-roll-service:
 
 organisation:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
   org-default-limit: 100
   org-search-max-limit: 200
   egov-location-hierarchy-type: "ADMIN"
@@ -198,25 +190,25 @@ organisation:
 
 bankaccounts:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
   bank-account-default-limit: 100
   bank-account-search-max-limit: 200
 
 individual:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
   state-level-tenant-id: "od"
   aadhaar-pattern: "\\d{12}"
   mobile-pattern: "\\d+"
 
 works-management-service:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
 
 ifms-adapter:
   tracing-enabled: true
   heap: "-Xmx368m -Xms368m"
-  java-enable-debug: true
+  #java-enable-debug: false
   payment-create-topic: "expense-payment-create"
   egov-idgen-ifms-pi-reference-number: "ifms.pi.reference.number"
   ifms-jit-authenticate-endpoint: "/webservices/jitfs/v1.0/authenticate"
@@ -250,11 +242,11 @@ ifms-adapter:
 
 expense-calculator:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
 
 expenses-billing:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
   expense-billing-default-offset: 0
   expense-billing-default-limit: 100
   expense-billing-search-max-limit: 200
@@ -262,14 +254,14 @@ expenses-billing:
 
 expense:
   tracing-enabled: true
-  java-enable-debug: true
+  #java-enable-debug: false
   expense-billing-default-offset: 0
   expense-billing-default-limit: 100
   expense-billing-search-max-limit: 200
   business-workflow-status-map : "{'EXPENSE.WAGES':'true','EXPENSE.PURCHASE':'true','EXPENSE.SUPERVISION':'true'}"
 
 works-inbox-service:
-  java-enable-debug: true
+  #java-enable-debug: false
   tracing-enabled: true
   service-map : '{"estimate-approval":{"searchPath":"http://estimates.works:8080/estimate/v1/_search","dataRoot":"estimates","applNosParam":"estimateNumber","businessIdProperty":"estimateNumber","applsStatusParam":"estimateStatus"}}'
 
@@ -318,7 +310,7 @@ egov-user:
   citizen-otp-fixed: "123456"
   citizen-otp-fixed-enabled: "false"
   state-level-tenant-id: "od"
-  java-enable-debug: true
+  #java-enable-debug: false
 
 egov-idgen:
   idformat-from-mdms: "true"
@@ -331,7 +323,7 @@ egov-persister:
   initContainers:
     gitSync:
       repo: "git@github.com:odisha-muktasoft/mukta-configs"
-      branch: "UAT"
+      branch: "master"
 
 egov-indexer:
   heap: "-Xmx512m -Xms512m"
@@ -351,7 +343,7 @@ egov-workflow-v2:
 
 egov-hrms:
   java-args: -Dspring.profiles.active=monitoring
-  java-enable-debug: true
+  #java-enable-debug: false
   heap: "-Xmx192m -Xms192m"
   employee-applink: "https://mukta.odisha.gov.in/works-ui/employee/user/login"
 
