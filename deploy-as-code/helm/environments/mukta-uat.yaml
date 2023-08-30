@@ -144,7 +144,7 @@ attendance:
   attendance-individual-service-integration-required: false
   attendance-staff-service-integration-required: false
   attendance-document-id-verification-required: false
-  attendance-register-open-search-enabled-roles: "SUPERUSER,EMPLOYEE_COMMON"
+  attendance-register-open-search-enabled-roles: "SUPERUSER,EMPLOYEE_COMMON,EMPLOYEE"
   organisation-contact-details-update-topic: organisation.contact.details.update
 
 contract-service:
