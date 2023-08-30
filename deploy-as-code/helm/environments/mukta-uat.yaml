@@ -125,7 +125,7 @@ estimate-service:
   
 attendance-service:
   tracing-enabled: true
-  java-enable-debug: true
+  java-enable-debug: false
   attendance-register-default-offset: 0
   attendance-register-default-limit: 10
   attendance-register-search-max-limit: 100
