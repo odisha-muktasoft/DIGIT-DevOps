@@ -127,12 +127,12 @@ estimate-service:
   estimate-workflow-business-service: "ESTIMATE"
   estimate-workflow-module-name: "estimate-service"
 
-attendance-service:
+attendance:
   tracing-enabled: true
   #java-enable-debug: false
   attendance-register-default-offset: 0
   attendance-register-default-limit: 10
-  attendance-register-search-max-limit: 100
+  attendance-register-search-max-limit: 5000
   attendance-individual-service-integration-required: false
   attendance-staff-service-integration-required: false
   attendance-document-id-verification-required: false
