@@ -54,7 +54,7 @@ cluster-configs:
         serializers-timezone-in-ist: "true"
         server-tomcat-max-threads: "10"
         server-tomcat-max-connections: "500"
-        sms-enabled: "true"
+        sms-enabled: "false"
         spring-datasource-tomcat-initialSize: "1"
         spring-datasource-tomcat-max-active: "2"
         spring-jpa-show-sql: "true"
@@ -127,12 +127,12 @@ estimate-service:
   estimate-workflow-business-service: "ESTIMATE"
   estimate-workflow-module-name: "estimate-service"
 
-attendance-service:
+attendance:
   tracing-enabled: true
   #java-enable-debug: false
   attendance-register-default-offset: 0
   attendance-register-default-limit: 10
-  attendance-register-search-max-limit: 100
+  attendance-register-search-max-limit: 5000
   attendance-individual-service-integration-required: false
   attendance-staff-service-integration-required: false
   attendance-document-id-verification-required: false
