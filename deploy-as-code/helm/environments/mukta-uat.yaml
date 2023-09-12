@@ -146,6 +146,7 @@ attendance:
   attendance-document-id-verification-required: false
   attendance-register-open-search-enabled-roles: "SUPERUSER,EMPLOYEE_COMMON,EMPLOYEE"
   organisation-contact-details-update-topic: organisation.contact.details.update
+  contracts-revision-topic: "contracts-revision"
 
 contract-service:
   tracing-enabled: true
@@ -155,6 +156,9 @@ contract-service:
   contract-search-max-limit: 50
   works-contract-service-code: "WORKS-CONTRACT"
   contract-workflow-business-service: "CONTRACT"
+  contract-workflow-revision-business-service: "CONTRACT-REVISION"
+  contracts-revision-topic: "contracts-revision"
+  contracts-time-extension-update-topic: "contracts-time-extension-update"
   contract-workflow-module-name: "contract-service"
   contract-cbo-url-host : "https://mukta-uat.digit.org"
   contract-cbo-url-endpoint : "/works-shg-app"
