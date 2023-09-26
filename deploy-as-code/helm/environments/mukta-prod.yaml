@@ -138,6 +138,7 @@ attendance:
   attendance-document-id-verification-required: false
   attendance-register-open-search-enabled-roles: "SUPERUSER,EMPLOYEE_COMMON"
   organisation-contact-details-update-topic: organisation.contact.details.update
+  contracts-revision-topic: "contracts-revision"
 
 contract-service:
   tracing-enabled: true
@@ -150,6 +151,9 @@ contract-service:
   contract-workflow-module-name: "contract-service"
   contract-cbo-url-host : "https://mukta.odisha.gov.in"
   contract-cbo-url-endpoint : "/works-shg-app"
+  contracts-time-extension-update-topic: "contracts-time-extension-update"
+  contract-workflow-revision-business-service: "CONTRACT-REVISION"
+  contracts-revision-topic: "contracts-revision"
 
 
 project:
