@@ -153,5 +153,5 @@ env: |
       secretKeyRef:
         name: ifms-adapter
         key: reqEncSecret
-  - name: JAVA_TOOL_OPTIONS          
+  - name: JAVA_OPTS          
     value: "-Djavax.net.ssl.trustStore=/usr/lib/jvm/java-1.8-openjdk/jre/lib/security/cacerts -Djavax.net.ssl.trustStorePassword=changeit"      
