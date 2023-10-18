@@ -6,7 +6,7 @@ labels:
 namespace: works
 
 cron:
-  schedule: "*/5 * * * *"
+  schedule: "0 6 * * *"
 
 # Container Configs
 image:
