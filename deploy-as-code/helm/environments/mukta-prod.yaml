@@ -195,8 +195,8 @@ organisation:
 bankaccounts:
   tracing-enabled: true
   #java-enable-debug: false
-  bank-account-default-limit: 100
-  bank-account-search-max-limit: 200
+  bank-account-default-limit: 1000
+  bank-account-search-max-limit: 2000
 
 individual:
   tracing-enabled: true
