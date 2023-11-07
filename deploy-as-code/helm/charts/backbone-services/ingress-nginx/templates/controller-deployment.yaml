@@ -20,7 +20,7 @@ spec:
       {{- include "ingress-nginx.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: controller
   {{- if not .Values.controller.autoscaling.enabled }}
-  replicas: {{ .Values.controller.replicaCount }}
+  replicas: {{ .Values.controller.replicas }}
   {{- end }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   {{- if .Values.controller.updateStrategy }}

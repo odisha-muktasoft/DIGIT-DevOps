@@ -476,8 +476,7 @@ dashboard-ingest:
       branch: "staging"
 
 
-nginx-ingress:
-  replicas: 1
+ingress-nginx:
   default-backend-service: "egov/nginx"
   namespace: egov
   cert-issuer: "letsencrypt-prod"
@@ -485,14 +484,11 @@ nginx-ingress:
   ssl-ciphers: "EECDH+CHACHA20:EECDH+AES"
   ssl-ecdh-curve: "X25519:prime256v1:secp521r1:secp384r1"
   controller:
-    image:
-      repository: egovio/nginx-ingress-controller
-      tag: "0.26.1"
-      #metrics:
-      enabled: true
+    replicas: 1
+    metrics:
+      enabled: false
       serviceMonitor:
         enabled: true
-    service:
       prometheusRule:
         enabled: true
 
