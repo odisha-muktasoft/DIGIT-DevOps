@@ -40,7 +40,7 @@ controller:
         http: 80
         https: 443
     # -- Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
-    config: 
+    config:
         proxy-hide-headers: "Server, X-Powered-By, X-AspNet-Version, X-AspNet-Mvc-Version"
         server-tokens: "False"
         ssl-protocols: "TLSv1.2 TLSv1.1 TLSv1"
@@ -311,7 +311,7 @@ controller:
     # -- Annotations to be added to controller pods
     ##
     podAnnotations: {}
-    replicaCount: 1
+    replicas: 1
     # -- Define either 'minAvailable' or 'maxUnavailable', never both.
     minAvailable: 1
     # -- Define either 'minAvailable' or 'maxUnavailable', never both.
