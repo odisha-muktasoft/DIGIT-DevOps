@@ -115,6 +115,8 @@ cluster-configs:
         egov-url-shortening: "http://egov-url-shortening.egov:8080/"
         inbox: "http://inbox.egov:8080/"
         es-client: http://elasticsearch-data-v1.es-cluster:9200
+        measurement-service: "http://measurement-service.works:8080/"
+        measurement-registry: "http://measurement-registry.works:8080/"
 
 #######------WORKS-----######
 estimate-service:
@@ -158,6 +160,8 @@ contract-service:
   works-contract-service-code: "WORKS-CONTRACT"
   contract-workflow-business-service: "CONTRACT"
   contract-workflow-revision-business-service: "CONTRACT-REVISION"
+  contract-revision-measurement-validation: true
+  contract-revision-max-limit: 2
   contracts-revision-topic: "contracts-revision"
   contracts-time-extension-update-topic: "contracts-time-extension-update"
   contract-workflow-module-name: "contract-service"
@@ -444,6 +448,29 @@ egov-searcher:
 # web >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 egov-user-chatbot:
   egov-state-level-tenant-id: "od"
+
+measurement-service:
+  tracing-enabled: true
+  java-enable-debug: true
+  measurement-service-kafka-create-topic: "save-measurement-service-details"
+  measurement-service-kafka-update-topic: "update-measurement-service-details"
+  measurement-idgen-name: "mb.reference.number"
+  measurement-idgen-format: "MB/[fy:yyyy-yy]/[SEQ_MEASUREMENT_NUM]"
+  measurement-service-default-offset: 0
+  measurement-service-default-limit: 10
+  measurement-service-search-max-limit: 50
+
+
+measurement-registry:
+  tracing-enabled: true
+  java-enable-debug: true
+  measurement-kafka-create-topic: "save-measurement-details"
+  measurement-kafka-update-topic: "update-measurement-details"
+  measurement-idgen-name: "mb.reference.number"
+  measurement-idgen-format: "MB/[fy:yyyy-yy]/[SEQ_MEASUREMENT_NUM]"
+  mb-default-offset: 0
+  mb-default-limit: 10
+  mb-search-max-limit: 50  
 
 
 works-ui:
