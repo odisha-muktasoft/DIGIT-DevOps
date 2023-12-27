@@ -117,6 +117,7 @@ cluster-configs:
         es-client: http://elasticsearch-data-v1.es-cluster:9200
         measurement-service: "http://measurement-service.works:8080/"
         measurement-registry: "http://measurement-registry.works:8080/"
+        egov-mdms-service-v2: "http://mdms-v2.egov:8080/"
 
 #######------WORKS-----######
 estimate-service:
