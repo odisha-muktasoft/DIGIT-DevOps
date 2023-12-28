@@ -118,6 +118,8 @@ cluster-configs:
         measurement-service: "http://measurement-service.works:8080/"
         measurement-registry: "http://measurement-registry.works:8080/"
         egov-mdms-service-v2: "http://mdms-v2.egov:8080/"
+        bulk-upload: "http://bulk-upload.egov:8080/"
+
 
 #######------WORKS-----######
 estimate-service:
@@ -169,14 +171,9 @@ contract-service:
   contract-cbo-url-host : "https://mukta-uat.digit.org"
   contract-cbo-url-endpoint : "/works-shg-app"
 
-# project-management-system:
-#   tracing-enabled: true
-#   java-enable-debug: true
-#   project-default-offset: 0
-#   project-default-limit: 100
-#   project-search-max-limit: 200
-#   project-mdms-module: "works"
-#   egov-location-hierarchy-type: "ADMIN"
+bulk-upload:
+  tracing-enabled: true
+  java-enable-debug: true
 
 project:
   tracing-enabled: true
