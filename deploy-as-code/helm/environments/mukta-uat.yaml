@@ -115,7 +115,11 @@ cluster-configs:
         egov-url-shortening: "http://egov-url-shortening.egov:8080/"
         inbox: "http://inbox.egov:8080/"
         es-client: http://elasticsearch-data-v1.es-cluster:9200
+        measurement-service: "http://measurement-service.works:8080/"
+        measurement-registry: "http://measurement-registry.works:8080/"
+        egov-mdms-service-v2: "http://mdms-v2.egov:8080/"
         bulk-upload: "http://bulk-upload.egov:8080/"
+
 
 #######------WORKS-----######
 estimate-service:
@@ -159,6 +163,8 @@ contract-service:
   works-contract-service-code: "WORKS-CONTRACT"
   contract-workflow-business-service: "CONTRACT"
   contract-workflow-revision-business-service: "CONTRACT-REVISION"
+  contract-revision-measurement-validation: true
+  contract-revision-max-limit: 2
   contracts-revision-topic: "contracts-revision"
   contracts-time-extension-update-topic: "contracts-time-extension-update"
   contract-workflow-module-name: "contract-service"
@@ -336,7 +342,7 @@ egov-idgen:
   autocreate-new-seq: "true"
 
 egov-persister:
-  persist-yml-path: "file:///work-dir/mukta-configs/egov-persister/estimate-service.yml,file:///work-dir/mukta-configs/egov-persister/hrms-employee-persister.yml,file:///work-dir/mukta-configs/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/mukta-configs/egov-persister/attendance-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/muster-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/project-persister.yml,file:///work-dir/mukta-configs/egov-persister/audit-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/individual-persister.yml,file:///work-dir/mukta-configs/egov-persister/service-request-persister.yml,file:///work-dir/mukta-configs/egov-persister/contract-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expensebilling-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/bankaccounts-persister.yml,file:///work-dir/mukta-configs/egov-persister/organisation-persister.yml,file:///work-dir/mukta-configs/egov-persister/expence-calculator-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expense-bill-payment-persister.yaml"
+  persist-yml-path: "file:///work-dir/mukta-configs/egov-persister/estimate-service.yml,file:///work-dir/mukta-configs/egov-persister/hrms-employee-persister.yml,file:///work-dir/mukta-configs/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/mukta-configs/egov-persister/attendance-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/muster-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/project-persister.yml,file:///work-dir/mukta-configs/egov-persister/audit-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/individual-persister.yml,file:///work-dir/mukta-configs/egov-persister/service-request-persister.yml,file:///work-dir/mukta-configs/egov-persister/contract-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expensebilling-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/bankaccounts-persister.yml,file:///work-dir/mukta-configs/egov-persister/organisation-persister.yml,file:///work-dir/mukta-configs/egov-persister/expence-calculator-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expense-bill-payment-persister.yaml,file:///work-dir/mukta-configs/egov-persister/mdms-persister.yml"
   initContainers:
     gitSync:
       repo: "git@github.com:odisha-muktasoft/mukta-configs"
@@ -386,6 +392,12 @@ egov-notification-sms:
 
 # gateway >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+workbench-ui:
+  custom-js-injection: |
+    sub_filter.conf: "
+      sub_filter  '<head>' '<head>
+      <script src=https://mukta-uat-bucket-s3.s3.ap-south-1.amazonaws.com/globalConfigsWorkbenchUAT.js type=text/javascript></script>';" 
+
 zuul:
   replicas: 1
   custom-filter-property: "false"
@@ -394,7 +406,7 @@ zuul:
   heap: "-Xmx512m -Xms256m"
   server-tomcat-max-threads: "350"
   server-tomcat-max-connections: "1500"
-  egov-open-endpoints-whitelist: "/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-location/boundarys/isshapefileexist,/hr-masters/hrconfigurations/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/egov-url-shortening"
+  egov-open-endpoints-whitelist: "/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-location/boundarys/isshapefileexist,/hr-masters/hrconfigurations/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/egov-url-shortening,/mdms-v2/schema/v1/_search,/mdms-v2/v2/_search,/mdms-v2/v1/_search"
   egov-mixed-mode-endpoints-whitelist: "/workflow/history/v1/_search,/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tag,/egov-idgen/id/_generate,/access/v1/actions/mdms/_get,/egov-location/location/v11/boundarys/_search,/pdf-service/v1/_create,/user/_search"
   eventlog-enabled: "true"
   eventlog-topic: "zuul-event-log"
@@ -440,6 +452,29 @@ egov-searcher:
 # web >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 egov-user-chatbot:
   egov-state-level-tenant-id: "od"
+
+measurement-service:
+  tracing-enabled: true
+  java-enable-debug: true
+  measurement-service-kafka-create-topic: "save-measurement-service-details"
+  measurement-service-kafka-update-topic: "update-measurement-service-details"
+  measurement-idgen-name: "mb.reference.number"
+  measurement-idgen-format: "MB/[fy:yyyy-yy]/[SEQ_MEASUREMENT_NUM]"
+  measurement-service-default-offset: 0
+  measurement-service-default-limit: 10
+  measurement-service-search-max-limit: 50
+
+
+measurement-registry:
+  tracing-enabled: true
+  java-enable-debug: true
+  measurement-kafka-create-topic: "save-measurement-details"
+  measurement-kafka-update-topic: "update-measurement-details"
+  measurement-idgen-name: "mb.reference.number"
+  measurement-idgen-format: "MB/[fy:yyyy-yy]/[SEQ_MEASUREMENT_NUM]"
+  mb-default-offset: 0
+  mb-default-limit: 10
+  mb-search-max-limit: 50  
 
 
 works-ui:

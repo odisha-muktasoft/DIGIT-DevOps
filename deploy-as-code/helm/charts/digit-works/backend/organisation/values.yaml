@@ -83,6 +83,11 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-hrms
+  - name: EGOV_ENC_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-enc-service	
   - name: ORG_KAFKA_CREATE_TOPIC
     value: "save-org"
   - name: ORG_KAFKA_UPDATE_TOPIC
@@ -142,3 +147,8 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: individual
+  - name: STATE_LEVEL_TENANT_ID
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: egov-state-level-tenant-id	
