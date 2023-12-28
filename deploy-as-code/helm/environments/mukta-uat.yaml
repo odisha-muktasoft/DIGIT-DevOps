@@ -115,6 +115,7 @@ cluster-configs:
         egov-url-shortening: "http://egov-url-shortening.egov:8080/"
         inbox: "http://inbox.egov:8080/"
         es-client: http://elasticsearch-data-v1.es-cluster:9200
+        bulk-upload: "http://bulk-upload.egov:8080/"
 
 #######------WORKS-----######
 estimate-service:
@@ -164,14 +165,9 @@ contract-service:
   contract-cbo-url-host : "https://mukta-uat.digit.org"
   contract-cbo-url-endpoint : "/works-shg-app"
 
-# project-management-system:
-#   tracing-enabled: true
-#   java-enable-debug: true
-#   project-default-offset: 0
-#   project-default-limit: 100
-#   project-search-max-limit: 200
-#   project-mdms-module: "works"
-#   egov-location-hierarchy-type: "ADMIN"
+bulk-upload:
+  tracing-enabled: true
+  java-enable-debug: true
 
 project:
   tracing-enabled: true
