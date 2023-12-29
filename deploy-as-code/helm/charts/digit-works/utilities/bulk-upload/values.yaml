@@ -10,7 +10,7 @@ ingress:
   namespace: egov
   enabled: true
   zuul: true
- # context: "egov-pdf"
+  context: "bulk-upload"
 
 # Init Containers Configs
 #initContainers:
