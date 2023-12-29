@@ -114,6 +114,7 @@ cluster-configs:
         zuul: "http://zuul:8080/"
         egov-url-shortening: "http://egov-url-shortening.egov:8080/"
         inbox: "http://inbox.egov:8080/"
+        measurement: "http://measurement-service.works:8080/"
         es-client: http://elasticsearch-data-v1.es-cluster:9200
         measurement-service: "http://measurement-service.works:8080/"
         measurement-registry: "http://measurement-registry.works:8080/"
