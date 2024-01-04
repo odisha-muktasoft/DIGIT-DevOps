@@ -120,6 +120,7 @@ cluster-configs:
         measurement-registry: "http://measurement-registry.works:8080/"
         egov-mdms-service-v2: "http://mdms-v2.egov:8080/"
         bulk-upload: "http://bulk-upload.egov:8080/"
+        mukta-services: "http://mukta-services.works:8080/"
 
 
 #######------WORKS-----######
