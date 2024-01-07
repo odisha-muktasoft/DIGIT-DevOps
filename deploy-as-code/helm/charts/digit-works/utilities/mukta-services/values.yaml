@@ -104,3 +104,8 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: egov-services-fqdn-name
+  - name: EGOV_MDMSV2_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-mdms-service-v2      
