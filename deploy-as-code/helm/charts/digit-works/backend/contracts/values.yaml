@@ -132,6 +132,11 @@ env: |
     value: "egov.core.notification.sms"
   - name: KAFKA_TOPICS_WORKS_NOTIFICATION_SMS
     value: "works.notification.sms"
+  - name: FILESTORE_SERVICE_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-filestore  
   {{- if index .Values "contracts-revision-topic" }}
   - name: CONTRACTS_REVISION_TOPIC
     value: {{ index .Values "contracts-revision-topic" | quote }} 
