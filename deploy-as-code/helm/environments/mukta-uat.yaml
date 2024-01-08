@@ -164,7 +164,8 @@ contract-service:
   contract-search-max-limit: 50
   works-contract-service-code: "WORKS-CONTRACT"
   contract-workflow-business-service: "CONTRACT"
-  contract-workflow-revision-business-service: "CONTRACT-REVISION"
+  contract-workflow-revision-business-service: "CONTRACT-REVISION-ESTIMATE"
+  contract-workflow-time-extension-business-service: "CONTRACT-REVISION"
   contract-revision-measurement-validation: true
   contract-revision-max-limit: 2
   contracts-revision-topic: "contracts-revision"
