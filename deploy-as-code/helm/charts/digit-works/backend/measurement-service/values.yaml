@@ -88,7 +88,8 @@ env: |
   - name: EGOV_LOCALIZATION_HOST
     valueFrom:
       configMapKeyRef:
-        name: egov-service-host     
+        name: egov-service-host
+        key: egov-localization
   {{- if index .Values "tracing-enabled" }}
   - name: TRACER_OPENTRACING_ENABLED
     value: "true" 
