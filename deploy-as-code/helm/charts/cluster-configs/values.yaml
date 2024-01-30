@@ -47,6 +47,10 @@ cluster-configs:
       namespace: works
       name: ifms-adapter
 
+    jupyter:
+      namespace: jupyter
+      name: jupyter
+
     egov-filestore: 
       namespace: egov
       name: egov-filestore     

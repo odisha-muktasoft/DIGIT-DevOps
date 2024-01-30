@@ -19,6 +19,7 @@ cluster-configs:
         playground,
         zookeeper-cluster,
         es-cluster-infra,
+        jupyter
       ]
 
   rbac:
