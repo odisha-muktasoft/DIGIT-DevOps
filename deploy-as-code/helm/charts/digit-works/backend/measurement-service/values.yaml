@@ -85,6 +85,13 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: state-level-tenant-id
+  - name: SMS_ISADDTIONALFIELDREQUIRED
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: sms-isAdditonalFieldRequired
+  - name: KAFKA_TOPICS_WORKS_NOTIFICATION_SMS
+    value: "works.notification.sms"
   - name: EGOV_LOCALIZATION_HOST
     valueFrom:
       configMapKeyRef:
