@@ -97,6 +97,11 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-localization
+  - name: WORKS_PROJECT_SERVICE_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: project-management-system
   {{- if index .Values "tracing-enabled" }}
   - name: TRACER_OPENTRACING_ENABLED
     value: "true" 
