@@ -98,6 +98,8 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-mdms-service-v2
+  - name: JAVA_ENABLE_DEBUG
+    value: "true"      
   - name: EGOV_FILESTORE_HOST
     valueFrom:
       configMapKeyRef:
