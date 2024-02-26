@@ -80,6 +80,7 @@ cluster-configs:
         egov-filestore: "http://egov-filestore.egov:8080/"
         egov-idgen: "http://egov-idgen.egov:8080/"
         egov-workflow-v2: "http://egov-workflow-v2.egov:8080/"
+        bulk-upload: "http://bulk-upload.egov:8080/"
 
         attendance-service: "http://attendance.works:8080/"
         contract-service: "http://contracts.works:8080/"
@@ -156,6 +157,9 @@ contract-service:
   contract-workflow-revision-business-service: "CONTRACT-REVISION"
   contracts-revision-topic: "contracts-revision"
 
+bulk-upload:
+  tracing-enabled: true
+  java-enable-debug: true
 
 project:
   tracing-enabled: true
