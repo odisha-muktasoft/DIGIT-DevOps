@@ -80,7 +80,6 @@ cluster-configs:
         egov-filestore: "http://egov-filestore.egov:8080/"
         egov-idgen: "http://egov-idgen.egov:8080/"
         egov-workflow-v2: "http://egov-workflow-v2.egov:8080/"
-        bulk-upload: "http://bulk-upload.egov:8080/"
 
         attendance-service: "http://attendance.works:8080/"
         contract-service: "http://contracts.works:8080/"
@@ -119,6 +118,13 @@ cluster-configs:
         egov-pdf: "http://egov-pdf.egov:8080/"
         es-client: http://elasticsearch-data-v1.es-cluster:9200
         es-client-infra: http://elasticsearch-data-infra-v1.es-cluster-infra:9200
+        measurement: "http://measurement-service.works:8080/"
+        
+        measurement-service: "http://measurement-service.works:8080/"
+        measurement-registry: "http://measurement-registry.works:8080/"
+        egov-mdms-service-v2: "http://mdms-v2.egov:8080/"
+        bulk-upload: "http://bulk-upload.egov:8080/"
+        mukta-services: "http://mukta-services.works:8080/"
 
 #######------WORKS-----######
 estimate-service:
@@ -150,11 +156,14 @@ contract-service:
   contract-search-max-limit: 50
   works-contract-service-code: "WORKS-CONTRACT"
   contract-workflow-business-service: "CONTRACT"
+  contract-workflow-revision-business-service: "CONTRACT-REVISION-ESTIMATE"
+  contract-workflow-time-extension-business-service: "CONTRACT-REVISION"
+  contract-revision-measurement-validation: true
+  contract-revision-max-limit: 2
   contract-workflow-module-name: "contract-service"
   contract-cbo-url-host : "https://mukta.odisha.gov.in"
   contract-cbo-url-endpoint : "/works-shg-app"
   contracts-time-extension-update-topic: "contracts-time-extension-update"
-  contract-workflow-revision-business-service: "CONTRACT-REVISION"
   contracts-revision-topic: "contracts-revision"
 
 bulk-upload:
@@ -327,8 +336,8 @@ egov-idgen:
   heap: "-Xmx192m -Xms192m"
   autocreate-new-seq: "true"
 
-egov-persister:
-  persist-yml-path: "file:///work-dir/mukta-configs/egov-persister/estimate-service.yml,file:///work-dir/mukta-configs/egov-persister/hrms-employee-persister.yml,file:///work-dir/mukta-configs/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/mukta-configs/egov-persister/attendance-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/muster-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/project-persister.yml,file:///work-dir/mukta-configs/egov-persister/audit-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/individual-persister.yml,file:///work-dir/mukta-configs/egov-persister/service-request-persister.yml,file:///work-dir/mukta-configs/egov-persister/contract-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expensebilling-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/bankaccounts-persister.yml,file:///work-dir/mukta-configs/egov-persister/organisation-persister.yml,file:///work-dir/mukta-configs/egov-persister/expence-calculator-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expense-bill-payment-persister.yaml,file:///work-dir/mukta-configs/egov-persister/mdms-persister.yml"
+ egov-persister:
+  persist-yml-path: "file:///work-dir/mukta-configs/egov-persister/estimate-service.yml,file:///work-dir/mukta-configs/egov-persister/hrms-employee-persister.yml,file:///work-dir/mukta-configs/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/mukta-configs/egov-persister/attendance-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/muster-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/project-persister.yml,file:///work-dir/mukta-configs/egov-persister/audit-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/individual-persister.yml,file:///work-dir/mukta-configs/egov-persister/service-request-persister.yml,file:///work-dir/mukta-configs/egov-persister/contract-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expensebilling-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/bankaccounts-persister.yml,file:///work-dir/mukta-configs/egov-persister/organisation-persister.yml,file:///work-dir/mukta-configs/egov-persister/expence-calculator-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expense-bill-payment-persister.yaml,file:///work-dir/mukta-configs/egov-persister/mdms-persister.yml,file:///work-dir/mukta-configs/egov-persister/measurement-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/measurement-persister.yml"
   initContainers:
     gitSync:
       repo: "git@github.com:odisha-muktasoft/mukta-configs"
@@ -341,7 +350,7 @@ egov-indexer:
     gitSync:
       repo: "git@github.com:odisha-muktasoft/mukta-configs"
       branch: "master"
-  egov-indexer-yaml-repo-path: "file:///work-dir/mukta-configs/egov-indexer/estimateservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/musterservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/individual-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/project-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/contractservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/organisationservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/expensebill-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/ifms-pi-indexer.yml"
+  egov-indexer-yaml-repo-path: "file:///work-dir/mukta-configs/egov-indexer/estimateservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/musterservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/individual-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/project-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/contractservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/organisationservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/expensebill-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/ifms-pi-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/measurement-indexer.yml"
 
 egov-workflow-v2:
   logging-level: "DEBUG"
@@ -419,8 +428,8 @@ pdf-service:
     gitSync:
       repo: "git@github.com:odisha-muktasoft/mukta-configs"
       branch: "master"
-  data-config-urls: "file:///work-dir/mukta-configs/pdf-service/data-config/works-estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/project-detail.json,file:///work-dir/mukta-configs/pdf-service/data-config/estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/nominal-muster-roll.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order-odiya.json"
-  format-config-urls: "file:///work-dir/mukta-configs/pdf-service/format-config/works-estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/project-detail.json,file:///work-dir/mukta-configs/pdf-service/format-config/estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/nominal-muster-roll.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order-odiya.json"
+  data-config-urls: "file:///work-dir/mukta-configs/pdf-service/data-config/works-estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/project-detail.json,file:///work-dir/mukta-configs/pdf-service/data-config/estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/nominal-muster-roll.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order_ia.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order_ip.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order-odiya_ia.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order-odiya_ip.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order-odiya.json,file:///work-dir/mukta-configs/pdf-service/data-config/detailed-estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/deviation-statement.json,file:///work-dir/mukta-configs/pdf-service/data-config/measurement-book.json"
+  format-config-urls: "file:///work-dir/mukta-configs/pdf-service/format-config/works-estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/project-detail.json,file:///work-dir/mukta-configs/pdf-service/format-config/estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/nominal-muster-roll.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order_ia.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order_ip.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order-odiya_ia.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order-odiya_ip.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order-odiya.json,file:///work-dir/mukta-configs/pdf-service/format-config/detailed-estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/deviation-statement.json,file:///work-dir/mukta-configs/pdf-service/format-config/measurement-book.json"
 egov-searcher:
   search-yaml-path: "file:///work-dir/mukta-configs/egov-searcher/inboxestimatesearch.yml"
   initContainers:
@@ -432,6 +441,29 @@ egov-searcher:
 # web >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 egov-user-chatbot:
   egov-state-level-tenant-id: "od"
+
+measurement-service:
+  tracing-enabled: true
+  java-enable-debug: false
+  measurement-service-kafka-create-topic: "save-measurement-service-details"
+  measurement-service-kafka-update-topic: "update-measurement-service-details"
+  measurement-idgen-name: "mb.reference.number"
+  measurement-idgen-format: "MB/[fy:yyyy-yy]/[SEQ_MEASUREMENT_NUM]"
+  measurement-service-default-offset: 0
+  measurement-service-default-limit: 10
+  measurement-service-search-max-limit: 50
+
+
+measurement-registry:
+  tracing-enabled: true
+  java-enable-debug: false
+  measurement-kafka-create-topic: "save-measurement-details"
+  measurement-kafka-update-topic: "update-measurement-details"
+  measurement-idgen-name: "mb.reference.number"
+  measurement-idgen-format: "MB/[fy:yyyy-yy]/[SEQ_MEASUREMENT_NUM]"
+  mb-default-offset: 0
+  mb-default-limit: 10
+  mb-search-max-limit: 50    
 
 
 works-ui:
