@@ -159,7 +159,7 @@ contract-service:
   contract-workflow-revision-business-service: "CONTRACT-REVISION-ESTIMATE"
   contract-workflow-time-extension-business-service: "CONTRACT-REVISION"
   contract-revision-measurement-validation: true
-  contract-revision-max-limit: 2
+  contract-revision-max-limit: 5
   contract-workflow-module-name: "contract-service"
   contract-cbo-url-host : "https://mukta.odisha.gov.in"
   contract-cbo-url-endpoint : "/works-shg-app"
