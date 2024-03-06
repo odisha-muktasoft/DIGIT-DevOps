@@ -155,4 +155,5 @@ env: |
         key: reqEncSecret  
    {{- if index .Values "numberofdays.to.fetch.failed.payments" }}
   - name: NUMBEROFDAYS_TO_FETCH_FAILED_PAYMENTS
-    value: "100"     
+    value: "100"
+   {{- end }}
