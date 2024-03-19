@@ -184,7 +184,7 @@ env: |
   {{- end }}
   {{- if index .Values "contract-revision-max-limit" }}
   - name: CONTRACT_REVISION_MAX_LIMIT
-    value: {{ index .Values "contract-revision-max-limit" | quote }}
+    value: 5
   {{- end }}
   {{- if index .Values "contract-workflow-time-extension-business-service" }}
   - name: CONTRACT_WORKFLOW_TIME_EXTENSION_BUSINESS_SERVICE
