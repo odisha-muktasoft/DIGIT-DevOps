@@ -138,7 +138,7 @@ env: |
         name: egov-service-host
         key: egov-filestore 
   - name: CONTRACT_REVISION_MAX_LIMIT
-    value: 5     
+    value: "5"     
   {{- if index .Values "contracts-revision-topic" }}
   - name: CONTRACTS_REVISION_TOPIC
     value: {{ index .Values "contracts-revision-topic" | quote }} 
