@@ -136,7 +136,9 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: egov-filestore  
+        key: egov-filestore 
+  - name: CONTRACT_REVISION_MAX_LIMIT
+    value: 5     
   {{- if index .Values "contracts-revision-topic" }}
   - name: CONTRACTS_REVISION_TOPIC
     value: {{ index .Values "contracts-revision-topic" | quote }} 
@@ -181,10 +183,6 @@ env: |
   {{- if index .Values "contract-revision-measurement-validation" }}
   - name: CONTRACT_REVISION_MEASUREMENT_VALIDATION
     value: {{ index .Values "contract-revision-measurement-validation" | quote }}
-  {{- end }}
-  {{- if index .Values "contract-revision-max-limit" }}
-  - name: CONTRACT_REVISION_MAX_LIMIT
-    value: 5
   {{- end }}
   {{- if index .Values "contract-workflow-time-extension-business-service" }}
   - name: CONTRACT_WORKFLOW_TIME_EXTENSION_BUSINESS_SERVICE
