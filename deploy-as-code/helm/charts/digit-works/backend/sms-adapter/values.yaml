@@ -80,10 +80,10 @@ env: |
         name: egov-service-host
         key: egov-idgen
   - name: WORKS_PROJECT_HOST
-      valueFrom:
-        configMapKeyRef:
-          name: egov-service-host
-          key: project-management-system
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: project-management-system
   - name: EGOV_LOCATION_HOST
     valueFrom:
       configMapKeyRef:
