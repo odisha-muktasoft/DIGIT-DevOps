@@ -110,6 +110,4 @@ env: |
         name: egov-service-host
         key: expense-calculator
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
-    valueFrom:
-        name: sms-adapter
-        key: spring-kafka-consumer-group-id
+    value: "sms-adapter-service"
