@@ -236,6 +236,9 @@ sms-adapter:
   tracing-enabled: true
   heap: "-Xmx368m -Xms368m"
   java-enable-debug: true
+  spring-kafka-consumer-group-id: sms-adapter-service
+
+
 
 ifms-adapter:
   tracing-enabled: true
