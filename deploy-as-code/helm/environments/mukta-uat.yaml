@@ -13,6 +13,7 @@ cluster-configs:
         egov,
         works,
         es-cluster,
+        es-upgrade,
         kafka-cluster,
         logging,
         monitoring,
@@ -811,7 +812,7 @@ logrotate:
 playground:
   replicas: 1
   images:
-    - egovio/playground:1.0
+    - egovio/playground:ubuntu-18-elasticdump
 
 pgadmin:
   images:
@@ -882,3 +883,51 @@ grafana:
   #       zone: ap-south-1b
   # ingress:
   #   hostName: minio-staging.digit.org
+
+
+elasticsearch-data-v8:
+  image:
+    tag: 8.11.3
+  persistence:
+    enabled: true
+    aws:
+      - volumeId: "vol-06a2faf43eb9741a7"
+        zone: ap-south-1b
+      - volumeId: "vol-044f5c40e8d3c33d1"
+        zone: ap-south-1b
+      - volumeId: "vol-0a6917a89759403fa"
+        zone: ap-south-1b
+
+  esJavaOpts: "-Xmx1g -Xms1g"
+  resources:
+    requests:
+      # cpu: "1000m"
+      memory: "2Gi"
+    limits:
+      # cpu: "1000m"
+      memory: "2Gi"
+
+elasticsearch-master-v8:
+  replicas: 3
+  image:
+    tag: 8.11.3
+  persistence:
+    enabled: true
+    aws:
+      - volumeId: "vol-06570d746a98cb99d"
+        zone: ap-south-1b
+      - volumeId: "vol-0d45b199204e88930"
+        zone: ap-south-1b
+      - volumeId: "vol-02fd664db879ff8dc"
+        zone: ap-south-1b
+
+  esJavaOpts: "-Xmx448m -Xms448m"
+  resources:
+    requests:
+      memory: "896Mi"
+    limits:
+      memory: "896Mi"
+
+kibana-v8:
+  image:
+    tag: 8.11.3
