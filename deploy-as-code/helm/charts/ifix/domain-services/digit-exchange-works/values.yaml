@@ -1,16 +1,16 @@
 # Common Labels
 labels:
-  app: "digit-exchange"
-  group: "ifix"
+  app: "digit-exchange-works"
+  group: "works"
 
-namespace: ifix
+namespace: works
 
 # Ingress Configs
 ingress:
   namespace: egov
   enabled: true
   zuul: true
-  context: "digit-exchange"
+  context: "digit-exchange-works"
 
 # Init Containers Configs
 initContainers:
@@ -18,16 +18,16 @@ initContainers:
     enabled: true
     schemaTable: "digit_exchange_schema"
     image:
-      repository: "digit-exchange-db"
+      repository: "digit-exchange-works-db"
 
 # Container Configs
 image:
-  repository: "digit-exchange"
+  repository: "digit-exchange-works"
 replicas: "1"
 healthChecks:
   enabled: true
-  livenessProbePath: "/ifms/digit-exchange/health"
-  readinessProbePath: "/ifms/digit-exchange/health"
+  livenessProbePath: "/mukta/digit-exchange/health"
+  readinessProbePath: "/mukta/digit-exchange/health"
 appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx192m -Xms192m"
@@ -46,9 +46,9 @@ env: |
     value: "true" 
   {{- end }}
   - name: SERVER_CONTEXT_PATH
-    value: /ifms/digit-exchange
+    value: /mukta/digit-exchange
   - name: SERVER_SERVLET_CONTEXT-PATH
-    value: /ifms/digit-exchange
+    value: /mukta/digit-exchange
   - name: KAFKA_CONFIG_BOOTSTRAP_SERVER_CONFIG
     valueFrom:
       configMapKeyRef:
@@ -115,4 +115,3 @@ env: |
         name: egov-config
         key: db-url
   {{- end }}
-

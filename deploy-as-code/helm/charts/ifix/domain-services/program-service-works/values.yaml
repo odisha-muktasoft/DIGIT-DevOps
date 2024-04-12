@@ -1,16 +1,16 @@
 # Common Labels
 labels:
-  app: "program-service"
-  group: "ifix"
+  app: "program-service-works"
+  group: "works"
 
-namespace: ifix
+namespace: works
 
 # Ingress Configs
 ingress:
   namespace: egov
   enabled: true
   zuul: true
-  context: "program-service"
+  context: "program-service-works"
 
 # Init Containers Configs
 initContainers:
@@ -18,16 +18,16 @@ initContainers:
     enabled: true
     schemaTable: "program_service_schema"
     image:
-      repository: "program-service-db"
+      repository: "program-service-works-db"
 
 # Container Configs
 image:
-  repository: "program-service"
+  repository: "program-service-works"
 replicas: "1"
 healthChecks:
   enabled: true
-  livenessProbePath: "/ifms/program-service/health"
-  readinessProbePath: "/ifms/program-service/health"
+  livenessProbePath: "/mukta/program-service/health"
+  readinessProbePath: "/mukta/program-service/health"
 appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx192m -Xms192m"
@@ -46,7 +46,7 @@ env: |
     value: "true" 
   {{- end }}
   - name: SERVER_SERVLET_CONTEXT-PATH
-    value: /ifms/program-service
+    value: /mukta/program-service
   {{- if index .Values "java-enable-debug" }}
   - name: JAVA_ENABLE_DEBUG
     value: "true"
@@ -58,11 +58,11 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: kafka-brokers
-  # - name: PROGRAM_DOMAIN
-  #   valueFrom:
-  #     configMapKeyRef:
-  #       name: egov-config
-  #       key: egov-services-fqdn-name
+  - name: PROGRAM_DOMAIN
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: egov-services-fqdn-name
   - name: EXCHANGE_HOST
     valueFrom:
       configMapKeyRef:
@@ -160,10 +160,10 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: program-service
+        key: ifix-program-service
   {{- else }}
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: works-program-service
+        key: program-service
   {{- end }}

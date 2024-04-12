@@ -122,9 +122,10 @@ cluster-configs:
         egov-mdms-service-v2: "http://mdms-v2.egov:8080/"
         bulk-upload: "http://bulk-upload.egov:8080/"
         mukta-services: "http://mukta-services.works:8080/"
-        digit-exchange: "http://digit-exchange.ifix:8080/"
-        program-service: "http://program-service.ifix:8080/"
+        program-service: "http://program-service-works.works:8080/"
+        digit-exchange: "http://digit-exchange-works.works:8080/"
         mukta-ifix-adapter: "http://mukta-ifix-adapter.works:8080/"
+        ifix-program-service: "http://program-service.ifix:8080/"
 
 
 #######------WORKS-----######
@@ -248,6 +249,12 @@ ifms-adapter:
   egov-idgen-ifms-pi-reference-number: "ifms.pi.reference.number"
   ifms-jit-authenticate-endpoint: "/webservices/jitfs/v1.0/authenticate"
   ifms-jit-service-endpoint: "/webservices/jitfs/v1.0/get-jit-service-data"
+  egov-bill-search-limit: 10
+  program-onsanction-create-endpoint: "/ifms/program-service/v1/on-sanction/_create"
+  program-onallocation-create-endpoint: "/ifms/program-service/v1/on-allocation/_create"
+  program-program-search-endpoint: "/ifms/program-service/v1/program/_search"
+  program-ondisburse-create-endpoint: "/ifms/program-service/v1/disburse/_create"
+  program-disburse-search-endpoint: "/ifms/program-service/v1/disburse/search"
 
 ifms-cronjob-pa:
   user-name: "IFMS_CRONJOB"
@@ -419,7 +426,7 @@ zuul:
   heap: "-Xmx512m -Xms256m"
   server-tomcat-max-threads: "350"
   server-tomcat-max-connections: "1500"
-  egov-open-endpoints-whitelist: "/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-location/boundarys/isshapefileexist,/hr-masters/hrconfigurations/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/egov-url-shortening,/mdms-v2/schema/v1/_search,/mdms-v2/v2/_search,/mdms-v2/v1/_search"
+  egov-open-endpoints-whitelist: "/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-location/boundarys/isshapefileexist,/hr-masters/hrconfigurations/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/egov-url-shortening,/mdms-v2/schema/v1/_search,/mdms-v2/v2/_search,/mdms-v2/v1/_search,/digit-exchange/v1/program,/digit-exchange/v1/on-program"
   egov-mixed-mode-endpoints-whitelist: "/workflow/history/v1/_search,/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tag,/egov-idgen/id/_generate,/access/v1/actions/mdms/_get,/egov-location/location/v11/boundarys/_search,/pdf-service/v1/_create,/user/_search"
   eventlog-enabled: "true"
   eventlog-topic: "zuul-event-log"
@@ -427,18 +434,8 @@ zuul:
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-# ifix >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-digit-exchange:
-  tracing-enabled: true
-  java-enable-debug: true
-  app-enable-events-log: true
-  app-auth-sign-validation: true
-  app-auth-private-key: "-----BEGIN PRIVATE KEY-----MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDrD9z2aCCj1FPsp0c2NbijCcXWFXBu6G+VBHAZLXZjW7uf72xGNgQAgigvJZkz7wqj+B8NIv9vrAAJEnPjUXsATBAgf3GIkKJY+lflT0Cz0TVO8nfzKSXWYKFhyzgA8+185vvFllediuQUCSBnaVy+bYHlup4dZOLuqx/l2NW+kqVoQXDpwigdfAD6gpFvytSrhS10Dcep79Z9n5ajMHRVy83B+YnF5rQWElJIcAdaqFdwE/4xig0r7eueGNvCzEK23R9TvFITPO7HVzbpQ+l4jBM1YiYS5XlgjyHOzE+BW11yyhGp51Jiu0d4ILn6/owHWrvCXDqJK9L096XNm+bHAgMBAAECggEABIDLy16oTWsqZmy39QZncJwl0Zmci0tho9mvahQQYgvmVsSH7vpm7jmQGoMeYbvRGN4Ofjpu6U1CvOnBFZhAgntyjaTTYHng2lKFb4uqoic+XbJQcPSXWHmGbfCuNHp30L4+EYV1TTvVbbrVB5YhpDZF2EhQciC2JjtaA5W5VorAQNt6vcNZ2+CotRRdxwN9ksQfAsVRM17SzeZYyB8ZhObYS8sEndliuMmzdKaIHoAqQsyExE41fY3MuV+G7vOLzzk5mz6hoAoY22u3owwdoJZvRXfGh3yFY7syLdO1ejEuctnqsH5aPlePNq2ZEkrf4Q/aYNzt3IXERrfi6l5ZCQKBgQD6Ok0icgSdBRyqSRjXkzI9RVQ1vXc2kwYqOjwMQ0HDVRzj7SXuG/xr7wAqoYHgdO52lA8pneJ2Rsz+GCJv2t6oZocsaYlAepD1jEoutqhOgsbCqu8n8M2RiOwhhY6DhwfHUbI3mqhmJDqUa27cxaRlnRZ0lzf0UtYLaAhUWe+NyQKBgQDwfABrKyf0q5Yr0yTWBldtPa1KuUYiBrKVYW8GJnS6lffEsWKqEOK5FFPdJ+bBpywCtvQY0XEwYVkl+BjRjlEn+KaGcdkslCP90Jk0FbQ98FrN2+YYsGhExUScxt5O51TH+hK+9XGLWcORdYoNWhDP3w5BhGNwOeCTjvDR9enYDwKBgQDPV7oMvc/G0LKVA+b60rTBgo4pzapX5XIpUYHqY1y93+wFjb9tU3FReoR3zsaQ2DO0vDDoOjSp7zbzocn/R6xSfEqr6XNao3U0kp/xn1dNXx4VtpBfVzDv1DZd/I4/vIcciTyUyKmboY+M5ozBkWAM9yLhT2CFKpLEdtrYEoHmyQKBgEGdA5w53R/zhPiWFlHSzx2+Gz7tCAaWnzkEqX8bFPQnoL9oyouuKb3nnu4TSfGCRA7FjhoLYv+ZP/KNG3BpjRkDzaOXAnMYRC2nMXW1ikTwBEZwffo0f25sCEliNRuAIHCjeWPiocUsi6BvWmhEL5wXttMHZP4kvHJmKKyQlOnfAoGBAKuBIACao1N5UGL78HTgrG7bDPq+DFpvmtrnJdhi+BkOdfb8ykvsiyt0/XdXzMjHPzHnhQPgDSenT/kK4f1JelJEw7wya0KF2fum3aM6HgbIqpzni1iOKWwDTfmyiPY3wWg3yFMBvOHejAHkP0XbVL4KVa0q9j+xWyeXbShuyLYj-----END PRIVATE KEY-----"
-  app-auth-public-key: "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6w/c9mggo9RT7KdHNjW4ownF1hVwbuhvlQRwGS12Y1u7n+9sRjYEAIIoLyWZM+8Ko/gfDSL/b6wACRJz41F7AEwQIH9xiJCiWPpX5U9As9E1TvJ38ykl1mChYcs4APPtfOb7xZZXnYrkFAkgZ2lcvm2B5bqeHWTi7qsf5djVvpKlaEFw6cIoHXwA+oKRb8rUq4UtdA3Hqe/WfZ+WozB0VcvNwfmJxea0FhJSSHAHWqhXcBP+MYoNK+3rnhjbwsxCtt0fU7xSEzzux1c26UPpeIwTNWImEuV5YI8hzsxPgVtdcsoRqedSYrtHeCC5+v6MB1q7wlw6iSvS9PelzZvmxwIDAQAB-----END PUBLIC KEY-----"
-  # app-receiver-endpoints: {"program":"http://program-service.ifix:8080/program-service/v1/"}
-
-program-service:
+#=================ifix service======================
+program-service-works:
   tracing-enabled: true
   java-enable-debug: true
   heap: "-Xmx256m -Xms256m"
@@ -451,7 +448,26 @@ program-service:
   is-sanction-async: false
   is-allocation-async: false
   is-disburse-async: true
-  exchange-path: "digit-exchange/v1/exchange/"
+  exchange-path: "mukta/digit-exchange/v1/exchange/"
+  exchange-service-external-url: "https://unified-dev.digit.org/mukta/digit-exchange"
+  program-kafka-topic: "works-ps-program-kafka-topic"
+  sanction-kafka-topic: "works-ps-sanction-kafka-topic"
+  allocation-kafka-topic: "works-ps-allocation-kafka-topic"
+  disburse-kafka-topic: "works-ps-disburse-kafka-topic"
+  error-queue: "works-ps-error-queue"
+
+digit-exchange-works:
+  tracing-enabled: true
+  java-enable-debug: true
+  app-enable-events-log: true
+  app-auth-sign-validation: true
+  app-auth-private-key: "-----BEGIN PRIVATE KEY-----MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC3c2rfkAFPnpeu0YdTsR1A04zHPWCkwGR6Cwb6gJBVAOPL3h8VqWhAbuUhfqFFfQY2dqzY9vXUgKsGC/SWAc4YEx/YG2R1z4yu8kt5rFDJsWvRLfQidKsIPoh51HUYl+kTLSvOhhqjEoWgSAsrZrtEMxl+Dl+rUeRJ1YWYFS9sKMuNVKhC5whQmx3v1zkKDi3Etp3fXyxv0nkwBx89aMIEPgZ/G70GEqRnPJY4Ec/U2281te4c0loJsdU9smYtS73Oa+pw34TFB2xtQB2Lx1Fb3oCapm+UJ0hQppywxU0k4xV6aI++8m2zNs/VT0hnP0BBOe2a6Pefgcyq+t3NPuwFAgMBAAECggEAHWBLkGIwe43zTyi5SWMWwp89r1f6RleSn2JtqyZ0NlBuqeI3SxI2If9ADMWI0KZNHOKTGiktw2oZON4oO+8tD/jcBBCa3SyvpAIjqOe5hhq1n6kCq5PQIYFV/GBToe0NgyccGTWrRUq9gCWZOEl6mliub9ugYUA7VMFu46Qc1G5MV0LJ3q22y9xjQjDYQjQyWB97OBVahDTHhthcg5pRP8kBqXf+ab+qkAc4gerOg2ivISl6Sm6yiZUQ62woTfoZvrX4nE7gtA+8zU6k1Yaej71r7KcwG3yaLQwbGx83jtUdSp0Xx7tBPjx6B5ok2pvcswizTaitOZZ0a5zm6neVzwKBgQDpFi6zIDv5YW8oPeK0haG7rM6HkikRY2ms0iwAIKuvn/4pxF2mblrROBC2CRmWyuu9qUWi3i3QjOA9KWtWnzLCPt634bPSZC0Lv9hoLBKE5/v154IP96DuGBbSSWV78spdc089m4yCkOazP7C9xe4hpRP1E/X7vPBmdOaNY0RIywKBgQDJfBv3E1WuTxI4sMs+o+eiAc9kbuKXXqInjB8S3hM/DdQUbuLs+JVo9P9kk7uCLZt5J28NDhl4GafbOSWWR0KwxjAwRYnbNwTsc8z2ophRG/VIzFzKMhDCK9I/Y/zlbdhEgXLP1Mz4bcgib+DCZnYz5WF4mQBBx2Bz+tfwXeqUbwKBgQC0EaUGUVLD+Bft2NF5cPtfh8MOTUZY3ppXHw9LEfJQ/aNXFRLcbsjOdSfD2gfgzOeOYGUhy89NHGhoF8WK5/ZIxlU9baqEUUvTleRTpiiwcJ/ge3epaj7zcby/vGAgf5MC2wBOsgq9G8B+niemlHDBoUxnu4H/dxmprYonlJa+PQKBgQCf7oDwNYu8ag1nrIYYOdhik5dA/HemebqzM5lyy45xbZObiI1eVs+aWWbkOhQL+BHCMJgIv9ldqNfBvvHkALqiQR79IiWUOW8SFbVrTJMlRtEDsRwyb104E7q3ELIsl22kqzAsYpk01UeYdj/tb5GCDiC5rpEypYUdas6/gHz0xwKBgHfLURs5XYYPXPnA6ARW9Wo/gPERIHi2vAkJ6xtj6PBldg4ZPeIyylFCtH7WJ5Pjyioqow8ItUh3C2KQX62AbMFKmYeYl0n1hc4Oc0DsfBAc7bR8V/BiMTpJc2o8/OnICV6S5xXjMC9WgodAtPwuj6dpMIIJA3zpO+AXaeHkolzn-----END PRIVATE KEY-----"
+  app-auth-public-key: "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt3Nq35ABT56XrtGHU7EdQNOMxz1gpMBkegsG+oCQVQDjy94fFaloQG7lIX6hRX0GNnas2Pb11ICrBgv0lgHOGBMf2Btkdc+MrvJLeaxQybFr0S30InSrCD6IedR1GJfpEy0rzoYaoxKFoEgLK2a7RDMZfg5fq1HkSdWFmBUvbCjLjVSoQucIUJsd79c5Cg4txLad318sb9J5MAcfPWjCBD4Gfxu9BhKkZzyWOBHP1NtvNbXuHNJaCbHVPbJmLUu9zmvqcN+ExQdsbUAdi8dRW96AmqZvlCdIUKacsMVNJOMVemiPvvJtszbP1U9IZz9AQTntmuj3n4HMqvrdzT7sBQIDAQAB-----END PUBLIC KEY-----"
+  app-receiver-endpoints: '{"program":"http://program-service-works.works:8080/mukta/program-service/v1/"}'
+  service-host-url: "https://unified-dev.digit.org/mukta/digit-exchange"
+  app-exchange-topic-name: "works-dx-exchange-topic"
+  app-error-topic-name: "works-dx-exchange-error-queue"
+  app-events-log-topic-name: "works-dx-exchange-event-log-queue"
 
 mukta-ifix-adapter:
   tracing-enabled: true
@@ -463,7 +479,9 @@ mukta-ifix-adapter:
   payment-create-topic: expense-payment-create
   disburse-create-topic: mukta-ifix-adapter-disburse-create
   disburse-update-topic: mukta-ifix-adapter-disburse-update
-  ifms-pi-index-enrich-topic: ifms-pi-index-enrich
+  ifms-pi-index-enrich-topic: mukta-ifix-pi-index-enrich
+  program-service-disbursement-create-endpoint: "/mukta/program-service/v1/disbursement/_create"
+  mukta-adapter-encryption-key: DisbursementEncrypt
 
 ##########################################
 
