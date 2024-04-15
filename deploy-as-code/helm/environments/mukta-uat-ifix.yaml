@@ -28,6 +28,7 @@ cluster-configs:
         db-host: "mukta-uat-db.ctm6jbmr5mnj.ap-south-1.rds.amazonaws.com"
         db-name: "mukta_uat_db"
         db-url: "jdbc:postgresql://mukta-uat-db.ctm6jbmr5mnj.ap-south-1.rds.amazonaws.com:5432/mukta_uat_db"
+        ifix-db-url: jdbc:postgresql://mukta-uat-db.ctm6jbmr5mnj.ap-south-1.rds.amazonaws.com:5432/mukta_uat_db?currentSchema=ifix
         domain: "https://mukta-uat.digit.org"
         egov-services-fqdn-name: "https://mukta-uat.digit.org/"
         egov-state-level-tenant-id: "od"
