@@ -150,3 +150,7 @@ cluster-configs:
     airflow:
       namespace: egov
       name: airflow
+
+    program-service:
+      namespace: [ ifix, works ]
+      name: program-service
