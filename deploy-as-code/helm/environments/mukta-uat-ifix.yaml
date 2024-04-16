@@ -21,6 +21,15 @@ cluster-configs:
 
   root-ingress:
     cert-issuer: letsencrypt-prod
+
+  secrets:
+    db:
+      namespace: [ ifix ]
+      name: db
+    program-service:
+      namespace: [ ifix ]
+      name: program-service
+
   configmaps:
     egov-config:
       namespace: [ ifix, monitoring ]
