@@ -122,7 +122,7 @@ cluster-configs:
         bulk-upload: "http://bulk-upload.egov:8080/"
         mukta-services: "http://mukta-services.works:8080/"
 
-        exchange: "http://digit-exchange.ifix:8080/"
+        digit-exchange: "http://digit-exchange.ifix:8080/"
         program-service: "http://program-service.ifix:8080/"
         ifix-adapter: "http://ifix-adapter.works:8080/"
 
