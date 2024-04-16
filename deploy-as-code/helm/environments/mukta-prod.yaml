@@ -13,6 +13,7 @@ cluster-configs:
         egov,
         works,
         es-cluster,
+        es-upgrade,
         kafka-cluster,
         logging,
         monitoring,
@@ -887,7 +888,7 @@ logrotate:
 playground:
   replicas: 1
   images:
-    - egovio/playground:1.0
+    - egovio/playground:ubuntu-18-elasticdump
 
 pgadmin:
   images:
