@@ -43,8 +43,8 @@ cluster-configs:
         domain: "https://mukta-uat.digit.org"
         egov-services-fqdn-name: "https://mukta-uat.digit.org/"
         egov-state-level-tenant-id: "od"
-        es-host: "elasticsearch-data-v8.es-upgrade"
-        es-indexer-host: "http://elasticsearch-data-v8.es-upgrade:9200/"
+        es-host: "elasticsearch-data-v1.es-cluster"
+        es-indexer-host: "http://elasticsearch-data-v1.es-cluster:9200/"
         flyway-locations: "filesystem:/flyway/sql,filesystem:/flyway/seed,filesystem:/flyway/uat"
         kafka-brokers: "kafka-v2.kafka-cluster:9092"
         kafka-infra-brokers: "kafka-v2.kafka-cluster:9092"
@@ -60,7 +60,7 @@ cluster-configs:
         spring-jpa-show-sql: "true"
         tracer-errors-provideexceptionindetails: "true"
         timezone: "Asia/Kolkata"
-        es-infra-host: elasticsearch-data-v8.es-upgrade
+        es-infra-host: elasticsearch-data-v1.es-cluster
         db-ssl: "false"
         state-level-tenant-id: "od"
         sms-isAdditonalFieldRequired: true
@@ -117,7 +117,7 @@ cluster-configs:
         egov-url-shortening: "http://egov-url-shortening.egov:8080/"
         inbox: "http://inbox.egov:8080/"
         measurement: "http://measurement-service.works:8080/"
-        es-client: http://elasticsearch-data-v8.es-upgrade:9200
+        es-client: http://elasticsearch-data-v1.es-cluster:9200
         measurement-service: "http://measurement-service.works:8080/"
         measurement-registry: "http://measurement-registry.works:8080/"
         egov-mdms-service-v2: "http://mdms-v2.egov:8080/"
@@ -842,7 +842,7 @@ es-curator-infra:
   schedule: "45 18 * * *"
   images:
     - bobrik/curator:5.6.0
-  es-host: "elasticsearch-client-v8.es-upgrade"
+  es-host: "elasticsearch-client-v1.es-cluster"
   logs-cleanup-enabled: "true"
   jaeger-cleanup-enabled: "true"
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
