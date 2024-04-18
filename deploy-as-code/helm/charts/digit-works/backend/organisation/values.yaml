@@ -152,3 +152,5 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: egov-state-level-tenant-id	
+  - name: NOTIFICATION_SMS_ENABLED
+    value: "false"
