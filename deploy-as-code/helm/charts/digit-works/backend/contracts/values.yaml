@@ -190,6 +190,7 @@ env: |
   - name: CONTRACT_WORKFLOW_TIME_EXTENSION_BUSINESS_SERVICE
     value: {{ index .Values "contract-workflow-time-extension-business-service" | quote }}
   {{- end }}
+  {{- if index .Values "notification-sms-enabled" }}
   - name: NOTIFICATION_SMS_ENABLED
-    value: "false"
-      
+    value: {{ index .Values "notification-sms-enabled" | quote }} 
+  {{- end }}
