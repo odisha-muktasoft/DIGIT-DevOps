@@ -90,4 +90,6 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: organisation
+        key: 
+  - name: NOTIFICATION_SMS_ENABLED
+    value: "false"
