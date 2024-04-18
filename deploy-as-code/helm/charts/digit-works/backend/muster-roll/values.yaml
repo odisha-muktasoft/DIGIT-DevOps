@@ -167,5 +167,3 @@ env: |
   {{- end }}
   - name: NOTIFICATION_SMS_ENABLED
     value: "false"
-
-  
