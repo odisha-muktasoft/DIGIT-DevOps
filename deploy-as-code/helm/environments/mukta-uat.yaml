@@ -849,7 +849,7 @@ es-curator-infra:
   schedule: "45 18 * * *"
   images:
     - bobrik/curator:5.6.0
-  es-host: "elasticsearch-client-v8.es-upgrade"
+  es-host: "elasticsearch-data-v8.es-upgrade"
   logs-cleanup-enabled: "true"
   jaeger-cleanup-enabled: "true"
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
