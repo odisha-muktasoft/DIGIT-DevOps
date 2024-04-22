@@ -41,8 +41,8 @@ cluster-configs:
         domain: "https://mukta.odisha.gov.in"
         egov-services-fqdn-name: "https://mukta.odisha.gov.in/"
         egov-state-level-tenant-id: "od"
-        es-host: "elasticsearch-data-v1.es-cluster"
-        es-indexer-host: "http://elasticsearch-data-v1.es-cluster:9200/"
+        es-host: "elasticsearch-data-v8.es-upgrade"
+        es-indexer-host: "http://elasticsearch-data-v8.es-upgrade:9200/"
         flyway-locations: "filesystem:/flyway/sql,filesystem:/flyway/seed,filesystem:/flyway/master"
         kafka-brokers: "kafka-v2.kafka-cluster:9092"
         kafka-infra-brokers: "kafka-v2-infra.kafka-cluster:9092"
@@ -58,7 +58,7 @@ cluster-configs:
         spring-jpa-show-sql: "true"
         tracer-errors-provideexceptionindetails: "true"
         timezone: "Asia/Kolkata"
-        es-infra-host: elasticsearch-data-v1.es-cluster
+        es-infra-host: elasticsearch-data-v8.es-upgrade
         db-ssl: "false"
         state-level-tenant-id: "od"
         sms-isAdditonalFieldRequired: true
@@ -112,7 +112,7 @@ cluster-configs:
         egov-url-shortening: "http://egov-url-shortening.egov:8080/"
         inbox: "http://inbox.egov:8080/"
         egov-pdf: "http://egov-pdf.egov:8080/"
-        es-client: http://elasticsearch-data-v1.es-cluster:9200
+        es-client: http://elasticsearch-data-v8.es-upgrade:9200
         es-client-infra: http://elasticsearch-data-infra-v1.es-cluster-infra:9200
         measurement: "http://measurement-service.works:8080/"
 
