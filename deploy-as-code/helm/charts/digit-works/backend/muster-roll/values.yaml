@@ -165,7 +165,7 @@ env: |
   - name: WORKS_CONTRACT_SERVICE_CODE
     value: {{ index .Values "works-contract-service-code" | quote }}
   {{- end }}
+  {{- if index .Values "notification-sms-enabled" }}
   - name: NOTIFICATION_SMS_ENABLED
-    value: "false"
-
-  
+    value: {{ index .Values "notification-sms-enabled" | quote }} 
+  {{- end }}

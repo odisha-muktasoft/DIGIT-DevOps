@@ -53,6 +53,10 @@ env: |
   - name: JAVA_ENABLE_DEBUG
     value: "true"
   {{- end }}
+  {{- if index .Values "notification-sms-enabled" }}
+  - name: NOTIFICATION_SMS_ENABLED
+    value: {{ index .Values "notification-sms-enabled" | quote }} 
+  {{- end }}
   - name: EXPENSE_CALCULATOR_CONSUME_TOPIC
     value: "calculate-musterroll"
   - name: EXPENSE_CALCULATOR_ERROR_TOPIC
@@ -90,6 +94,4 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: 
-  - name: NOTIFICATION_SMS_ENABLED
-    value: "false"
+        key: organisation

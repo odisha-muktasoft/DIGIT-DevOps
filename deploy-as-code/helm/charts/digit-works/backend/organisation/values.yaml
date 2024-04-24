@@ -142,6 +142,10 @@ env: |
   - name: ORGANISATION_CONTACT_DETAILS_UPDATE_TOPIC
     value: {{ index .Values "organisation-contact-details-update-topic" | quote }}
   {{- end }}
+  {{- if index .Values "notification-sms-enabled" }}
+  - name: NOTIFICATION_SMS_ENABLED
+    value: {{ index .Values "notification-sms-enabled" | quote }} 
+  {{- end }}
   - name: WORKS_INDIVIDUAL_HOST
     valueFrom:
       configMapKeyRef:
@@ -151,6 +155,4 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-config
-        key: egov-state-level-tenant-id	
-  - name: NOTIFICATION_SMS_ENABLED
-    value: "false"
+        key: egov-state-level-tenant-id
