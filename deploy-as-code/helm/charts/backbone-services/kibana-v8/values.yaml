@@ -7,9 +7,6 @@ namespace: es-upgrade
 ingress:
   enabled: true
   context: "kibana-v8"
-  additionalAnnotations: |
-    nginx.ingress.kubernetes.io/auth-signin:  https://$host/oauth2/start?rd=$escaped_request_uri
-    nginx.ingress.kubernetes.io/auth-url:     https://$host/oauth2/auth 
 
 # Init Containers Configs
 initContainers: {}
@@ -21,6 +18,10 @@ image:
 replicas: "1"
 httpPort: 5601
 elasticsearchHosts: "http://elasticsearch-data-v8.es-upgrade:9200"
+elasticsearchCertificateSecret: elasticsearch-certs
+elasticsearchCertificateAuthoritiesFile: ca.crt
+elasticsearchCredentialSecret: elasticsearch-credentials
+homeDir: "/usr/share/kibana"
 serverBasePath: "/kibana-v8"
 healthCheckPath: "kibana-v8/app/kibana"
 healthChecks:
@@ -35,4 +36,21 @@ env: |
   - name: SERVER_BASEPATH
     value: {{ .Values.serverBasePath | quote }}
   - name: SERVER_REWRITEBASEPATH
-    value: "true"   
+    value: "true"
+  - name: ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES
+    value: "{{ .Values.homeDir }}/config/certs/{{ .Values.elasticsearchCertificateAuthoritiesFile }}"
+
+extraVolumes: |
+  - name: kibana-tokens
+    emptyDir: {}
+  - name: elasticsearch-certs
+    secret:
+      secretName: {{ .Values.elasticsearchCertificateSecret }}
+
+extraVolumeMounts: |
+  - name: elasticsearch-certs
+    mountPath: {{ .Values.homeDir }}/config/certs
+    readOnly: true
+  - name: kibana-tokens
+    mountPath: {{ .Values.homeDir }}/config/tokens
+    readOnly: true

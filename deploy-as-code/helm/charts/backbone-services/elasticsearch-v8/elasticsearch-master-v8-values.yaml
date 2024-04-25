@@ -80,10 +80,10 @@ envFrom: []
 # A list of secrets and their paths to mount inside the pod
 # This is useful for mounting certificates for security and for mounting
 # the X-Pack license
-secretMounts: []
-#  - name: elastic-certificates
-#    secretName: elastic-certificates
-#    path: /usr/share/elasticsearch/config/certs
+secretMounts:
+  - name: elasticsearch-certs
+    secretName: elasticsearch-certs
+    path: /usr/share/elasticsearch/config/certs
 
 podAnnotations: {}
   # iam.amazonaws.com/role: es-cluster

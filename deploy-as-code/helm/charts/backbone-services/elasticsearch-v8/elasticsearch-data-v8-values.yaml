@@ -46,7 +46,7 @@ extraEnvs: |
   - name: ELASTIC_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: elasticsearch-master-credentials
+        name: elasticsearch-credential
         key: password
   - name: xpack.security.enabled
     value: "true"
@@ -87,7 +87,7 @@ envFrom: []
 # the X-Pack license
 secretMounts:
   - name: elastic-certificates
-    secretName: elasticsearch-master-certs
+    secretName: elasticsearch-certs
     path: /usr/share/elasticsearch/config/certs
 
 podAnnotations: {}
