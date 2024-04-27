@@ -91,6 +91,11 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: timezone
+  - name: EGOV_USER_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-user
   - name: SPRING_REDIS_HOST
     value: redis.backbone
   - name: SPRING_REDIS_PORT
