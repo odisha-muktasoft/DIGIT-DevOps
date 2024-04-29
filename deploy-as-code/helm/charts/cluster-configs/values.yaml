@@ -85,11 +85,7 @@ cluster-configs:
 
     kibana-infra: 
       namespace: egov
-      name: kibana-infra-creds     
-
-    pgadmin: 
-      namespace: playground
-      name: pgadmin
+      name: kibana-infra-creds
 
     egov-si-microservice:
       namespace: egov
@@ -154,3 +150,7 @@ cluster-configs:
     program-service:
       namespace: [ works ]
       name: program-service
+
+    elasticsearch:
+      namespace: [ es-upgrade ]
+      name: elasticsearch-credential
