@@ -40,8 +40,6 @@ extraEnvs: |
     value: "/usr/share/elasticsearch/data"
   - name: path.logs
     value: "/usr/share/elasticsearch/logs"
-  - name: xpack.security.enabled
-    value: "false"
   {{- if .Values.secret.enabled }}
   - name: ELASTIC_PASSWORD
     valueFrom:
