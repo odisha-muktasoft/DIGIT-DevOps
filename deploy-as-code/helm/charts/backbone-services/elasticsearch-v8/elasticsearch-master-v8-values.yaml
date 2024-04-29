@@ -41,6 +41,11 @@ extraEnvs: |
   - name: path.logs
     value: "/usr/share/elasticsearch/logs"
   {{- if .Values.createCert }}
+  - name: ELASTIC_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: password
   - name: xpack.security.enabled
     value: "true"
   - name: xpack.security.transport.ssl.enabled
