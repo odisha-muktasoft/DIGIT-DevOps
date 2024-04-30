@@ -15,12 +15,13 @@ initContainers: {}
 image:
   repository: "docker.elastic.co/kibana/kibana"
   tag: 8.11.3
+  pullPolicy: IfNotPresent
 replicas: "1"
 httpPort: 5601
-elasticsearchHosts: "http://elasticsearch-data-v8.es-upgrade:9200"
+elasticsearchHosts: "https://elasticsearch-master-v8:9200"
 elasticsearchCertificateSecret: elasticsearch-certs
 elasticsearchCertificateAuthoritiesFile: ca.crt
-elasticsearchCredentialSecret: elasticsearch-credentials
+elasticsearchCredentialSecret: elasticsearch-credential
 homeDir: "/usr/share/kibana"
 serverBasePath: "/kibana-v8"
 healthCheckPath: "kibana-v8/app/kibana"
@@ -39,6 +40,11 @@ env: |
     value: "true"
   - name: ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES
     value: "{{ .Values.homeDir }}/config/certs/{{ .Values.elasticsearchCertificateAuthoritiesFile }}"
+  - name: ELASTICSEARCH_SERVICEACCOUNTTOKEN
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "name" . }}-es-token
+        key: token
 
 extraVolumes: |
   - name: kibana-tokens
