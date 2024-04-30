@@ -163,3 +163,13 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-enc-service
+  - name: EGOV_ES_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: username
+  - name: EGOV_ES_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: password
