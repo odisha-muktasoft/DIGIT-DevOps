@@ -2,10 +2,10 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "name" -}}
+{{- define "kibana.name" -}}
 {{- $envOverrides := index .Values (tpl (default .Chart.Name .Values.name) .) -}}
-{{- $baseValues := .Values | deepCopy -}}
-{{- $values := dict "Values" (mustMergeOverwrite $baseValues $envOverrides) -}}
+{{- $baseCommonValues := .Values.common | deepCopy -}}
+{{- $values := dict "Values" (mustMergeOverwrite $baseCommonValues .Values $envOverrides) -}}
 {{- with mustMergeOverwrite . $values -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
@@ -24,6 +24,24 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 {{- end -}}
 
+{{/*
+Common labels
+*/}}
+{{- define "kibana.labels" -}}
+app: {{ .Chart.Name }}
+{{- if .Values.labels }}
+{{ toYaml .Values.labels }}
+{{- end }}
+{{- end -}}
+
 {{- define "kibana.home_dir" -}}
 /usr/share/kibana
+{{- end -}}
+
+{{- define "common.image" -}}
+{{- if contains "/" .repository -}}
+{{- printf "%s:%s" .repository  ( required "Tag is mandatory" .tag ) -}}
+{{- else -}}
+{{- printf "%s/%s:%s" $.Values.global.containerRegistry .repository ( required "Tag is mandatory" .tag ) -}}
+{{- end -}}
 {{- end -}}

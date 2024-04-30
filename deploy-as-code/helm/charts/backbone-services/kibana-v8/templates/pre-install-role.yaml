@@ -1,17 +1,14 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: pre-install-{{ template "name" . }}
+  name: pre-install-{{ template "kibana.fullname" . }}
   namespace: {{ .Values.namespace }}
-  {{- if .Values.labels }}
-  labels:
-    {{ toYaml .Values.labels }}
-  {{- end }}
+  labels: {{ include "kibana.labels" . | nindent 4 }}
   {{- if .Values.annotations }}
   annotations:
     {{- range $key, $value := .Values.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
+      {{ $key }}: {{ $value | quote }}
+      {{- end }}
   {{- end }}
 rules:
   - apiGroups:
