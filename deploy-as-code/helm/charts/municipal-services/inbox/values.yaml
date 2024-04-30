@@ -109,3 +109,13 @@ env: |
   {{- end }}
   - name: JAVA_ENABLE_DEBUG
     value: "true"
+  - name: EGOV_ES_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: username
+  - name: EGOV_ES_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: password

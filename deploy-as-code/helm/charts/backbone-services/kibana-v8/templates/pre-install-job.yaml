@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pre-install-{{ template "name" . }}
+  namespace: {{ .Values.namespace }}
+  {{- if .Values.labels }}
+  labels:
+    {{ toYaml .Values.labels }}
+  {{- end }}
+  {{- if .Values.annotations }}
+  annotations:
+    {{- range $key, $value := .Values.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  {{- end }}
+spec:
+  backoffLimit: 20
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: create-kibana-token
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          command: ["{{ template "kibana.home_dir" . }}/node/bin/node"]
+          args:
+           - {{ template "kibana.home_dir" . }}/helm-scripts/manage-es-token.js
+           - create
+          env:
+            - name: "ELASTICSEARCH_USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.elasticsearchCredentialSecret }}
+                  key: username
+            - name: "ELASTICSEARCH_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.elasticsearchCredentialSecret }}
+                  key: password
+            - name: ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES
+              value: "{{ template "kibana.home_dir" . }}/config/certs/{{ .Values.elasticsearchCertificateAuthoritiesFile }}"
+          volumeMounts:
+            - name: elasticsearch-certs
+              mountPath: {{ template "kibana.home_dir" . }}/config/certs
+              readOnly: true
+            - name: kibana-helm-scripts
+              mountPath: {{ template "kibana.home_dir" . }}/helm-scripts
+      serviceAccount: pre-install-{{ template "name" . }}
+      volumes:
+        - name: elasticsearch-certs
+          secret:
+            secretName: {{ .Values.elasticsearchCertificateSecret }}
+        - name: kibana-helm-scripts
+          configMap:
+            name: {{ template "name" . }}-helm-scripts
+            defaultMode: 0755
