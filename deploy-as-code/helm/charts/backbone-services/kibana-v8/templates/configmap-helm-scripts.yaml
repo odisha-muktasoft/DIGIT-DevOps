@@ -2,17 +2,14 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "name" . }}-helm-scripts
+  name: {{ template "kibana.fullname" . }}-helm-scripts
   namespace: {{ .Values.namespace }}
-  {{- if .Values.labels }}
-  labels:
-    {{ toYaml .Values.labels }}
-  {{- end }}
+  labels: {{ include "kibana.labels" . | nindent 4 }}
   {{- if .Values.annotations }}
   annotations:
     {{- range $key, $value := .Values.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
+      {{ $key }}: {{ $value | quote }}
+      {{- end }}
   {{- end }}
 data:
   manage-es-token.js: |
@@ -28,7 +25,7 @@ data:
     }
 
     // Elasticsearch API
-    const esPath = '_security/service/elastic/kibana/credential/token/{{ template "name" . }}';
+    const esPath = '_security/service/elastic/kibana/credential/token/{{ template "kibana.fullname" . }}';
     const esUrl = '{{ .Values.elasticsearchHosts }}' + '/' + esPath
     const esUsername = getEnvVar('ELASTICSEARCH_USERNAME');
     const esPassword = getEnvVar('ELASTICSEARCH_PASSWORD');
@@ -40,7 +37,7 @@ data:
     const k8sHostname = getEnvVar('KUBERNETES_SERVICE_HOST');
     const k8sPort = getEnvVar('KUBERNETES_SERVICE_PORT_HTTPS');
     const k8sPostSecretPath = 'api/v1/namespaces/{{ .Values.namespace }}/secrets';
-    const k8sDeleteSecretPath = 'api/v1/namespaces/{{ .Values.namespace }}/secrets/{{ template "name" . }}-es-token';
+    const k8sDeleteSecretPath = 'api/v1/namespaces/{{ .Values.namespace }}/secrets/{{ template "kibana.fullname" . }}-es-token';
     const k8sPostSecretUrl = `https://${k8sHostname}:${k8sPort}/${k8sPostSecretPath}`;
     const k8sDeleteSecretUrl = `https://${k8sHostname}:${k8sPort}/${k8sDeleteSecretPath}`;
     const k8sBearer = fs.readFileSync('/run/secrets/kubernetes.io/serviceaccount/token');
@@ -150,7 +147,7 @@ data:
                       "kind": "Secret",
                       "metadata": {
                           "namespace": "{{ .Values.namespace }}",
-                          "name": "{{ template "name" . }}-es-token",
+                          "name": "{{ template "kibana.fullname" . }}-es-token",
                       },
                       "type": "Opaque",
                       "data": {
