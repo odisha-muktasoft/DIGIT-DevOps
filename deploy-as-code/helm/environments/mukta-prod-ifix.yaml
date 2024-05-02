@@ -27,7 +27,7 @@ cluster-configs:
       namespace: [ ifix ]
       name: db
     program-service:
-      namespace: [ ifix ]
+      namespace: [ ifix, works ]
       name: program-service
 
   configmaps:
