@@ -125,6 +125,10 @@ cluster-configs:
         egov-mdms-service-v2: "http://mdms-v2.egov:8080/"
         bulk-upload: "http://bulk-upload.egov:8080/"
         mukta-services: "http://mukta-services.works:8080/"
+        program-service: "http://program-service-works.works:8080/"
+        digit-exchange: "http://digit-exchange-works.works:8080/"
+        mukta-ifix-adapter: "http://mukta-ifix-adapter.works:8080/"
+        ifix-program-service: "http://program-service.ifix:8080/"
 
 #######------WORKS-----######
 estimate-service:
@@ -231,30 +235,44 @@ ifms-adapter:
   egov-idgen-ifms-pi-reference-number: "ifms.pi.reference.number"
   ifms-jit-authenticate-endpoint: "/webservices/jitfs/v1.0/authenticate"
   ifms-jit-service-endpoint: "/webservices/jitfs/v1.0/get-jit-service-data"
+  egov-bill-search-limit: 10
+  program-onsanction-create-endpoint: "/ifms/program-service/v1/on-sanction/_create"
+  program-onallocation-create-endpoint: "/ifms/program-service/v1/on-allocation/_create"
+  program-program-search-endpoint: "/ifms/program-service/v1/program/_search"
+  program-ondisburse-create-endpoint: "/ifms/program-service/v1/on-disburse/_update"
+  program-disburse-search-endpoint: "/ifms/program-service/v1/disburse/_search"
 
 ifms-cronjob-pa:
  user-name: "IFMS_CRONJOB"
+ mukta-ifix-scheduler: "/mukta-ifix-adapter/_scheduler"
 
 ifms-cronjob-va:
  user-name: "IFMS_CRONJOB"
+ ifms-scheduler-path: "ifms-adapter/_scheduler"
 
 ifms-cronjob-pis:
  user-name: "IFMS_CRONJOB"
+ ifms-scheduler-path: "ifms-adapter/_scheduler"
 
 ifms-cronjob-pag:
  user-name: "IFMS_CRONJOB"
+ ifms-scheduler-path: "ifms-adapter/_scheduler"
 
 ifms-cronjob-pd:
  user-name: "IFMS_CRONJOB"
+ ifms-scheduler-path: "ifms-adapter/_scheduler"
 
 ifms-cronjob-fd:
  user-name: "IFMS_CRONJOB"
+ ifms-scheduler-path: "ifms-adapter/_scheduler"
 
 ifms-cronjob-ftps:
  user-name: "IFMS_CRONJOB"
+ ifms-scheduler-path: "ifms-adapter/_scheduler"
 
 ifms-cronjob-ftfps:
  user-name: "IFMS_CRONJOB"
+ ifms-scheduler-path: "ifms-adapter/_scheduler"
 
 
 
@@ -337,7 +355,7 @@ egov-idgen:
   autocreate-new-seq: "true"
 
 egov-persister:
-  persist-yml-path: "file:///work-dir/mukta-configs/egov-persister/estimate-service.yml,file:///work-dir/mukta-configs/egov-persister/hrms-employee-persister.yml,file:///work-dir/mukta-configs/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/mukta-configs/egov-persister/attendance-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/muster-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/project-persister.yml,file:///work-dir/mukta-configs/egov-persister/audit-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/individual-persister.yml,file:///work-dir/mukta-configs/egov-persister/service-request-persister.yml,file:///work-dir/mukta-configs/egov-persister/contract-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expensebilling-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/bankaccounts-persister.yml,file:///work-dir/mukta-configs/egov-persister/organisation-persister.yml,file:///work-dir/mukta-configs/egov-persister/expence-calculator-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expense-bill-payment-persister.yaml,file:///work-dir/mukta-configs/egov-persister/mdms-persister.yml,file:///work-dir/mukta-configs/egov-persister/measurement-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/measurement-persister.yml"
+  persist-yml-path: "file:///work-dir/mukta-configs/egov-persister/estimate-service.yml,file:///work-dir/mukta-configs/egov-persister/hrms-employee-persister.yml,file:///work-dir/mukta-configs/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/mukta-configs/egov-persister/attendance-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/muster-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/project-persister.yml,file:///work-dir/mukta-configs/egov-persister/audit-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/individual-persister.yml,file:///work-dir/mukta-configs/egov-persister/service-request-persister.yml,file:///work-dir/mukta-configs/egov-persister/contract-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expensebilling-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/bankaccounts-persister.yml,file:///work-dir/mukta-configs/egov-persister/organisation-persister.yml,file:///work-dir/mukta-configs/egov-persister/expence-calculator-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expense-bill-payment-persister.yaml,file:///work-dir/mukta-configs/egov-persister/mdms-persister.yml,file:///work-dir/mukta-configs/egov-persister/measurement-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/measurement-persister.yml,,file:///work-dir/mukta-configs/egov-persister/mukta-ifix-adapter-persister.yml"
   initContainers:
     gitSync:
       repo: "git@github.com:odisha-muktasoft/mukta-configs"
@@ -350,7 +368,7 @@ egov-indexer:
     gitSync:
       repo: "git@github.com:odisha-muktasoft/mukta-configs"
       branch: "master"
-  egov-indexer-yaml-repo-path: "file:///work-dir/mukta-configs/egov-indexer/estimateservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/musterservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/individual-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/project-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/contractservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/organisationservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/expensebill-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/ifms-pi-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/measurement-indexer.yml"
+  egov-indexer-yaml-repo-path: "file:///work-dir/mukta-configs/egov-indexer/estimateservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/musterservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/individual-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/project-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/contractservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/organisationservices-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/expensebill-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/ifms-pi-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/measurement-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/works-digit-exchange-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/ifms-digit-exchange-indexer.yml,file:///work-dir/mukta-configs/egov-indexer/mukta-pi-indexer.yml"
 
 egov-workflow-v2:
   logging-level: "DEBUG"
@@ -401,7 +419,7 @@ zuul:
   heap: "-Xmx512m -Xms256m"
   server-tomcat-max-threads: "350"
   server-tomcat-max-connections: "1500"
-  egov-open-endpoints-whitelist: "/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-location/boundarys/isshapefileexist,/hr-masters/hrconfigurations/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/egov-url-shortening,/mdms-v2/schema/v1/_search,/mdms-v2/v2/_search,/mdms-v2/v1/_search"
+  egov-open-endpoints-whitelist: "/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/egov-location/boundarys/getLocationByLocationName,/egov-location/boundarys/isshapefileexist,/hr-masters/hrconfigurations/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/filestore/v1/files/url,/egov-url-shortening,/mdms-v2/schema/v1/_search,/mdms-v2/v2/_search,/mdms-v2/v1/_search,/mukta/digit-exchange/v1/exchange/program,/mukta/digit-exchange/v1/exchange/on-program,/mukta/digit-exchange/v1/exchange/sanction,/mukta/digit-exchange/v1/exchange/on-sanction,/mukta/digit-exchange/v1/exchange/allocation,/mukta/digit-exchange/v1/exchange/on-allocation,/mukta/digit-exchange/v1/exchange/disburse,/mukta/digit-exchange/v1/exchange/on-disburse,/ifms/digit-exchange/v1/exchange/program,/ifms/digit-exchange/v1/exchange/on-program,/ifms/digit-exchange/v1/exchange/sanction,/ifms/digit-exchange/v1/exchange/on-sanction,/ifms/digit-exchange/v1/exchange/allocation,/ifms/digit-exchange/v1/exchange/on-allocation,/ifms/digit-exchange/v1/exchange/disburse,/ifms/digit-exchange/v1/exchange/on-disburse"
   egov-mixed-mode-endpoints-whitelist: "/workflow/history/v1/_search,/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tag,/egov-idgen/id/_generate,/access/v1/actions/mdms/_get,/egov-location/location/v11/boundarys/_search,/pdf-service/v1/_create,/user/_search"
   eventlog-enabled: "true"
   eventlog-topic: "zuul-event-log"
@@ -409,6 +427,56 @@ zuul:
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+#=================ifix service======================
+program-service-works:
+  tracing-enabled: true
+  java-enable-debug: true
+  heap: "-Xmx256m -Xms256m"
+  memory_limits: 512Mi
+  egov-idgen-idname: "ifix.program.number"
+  adapter-host: "http://mukta-ifix-adapter.works:8080/"
+  adapter-path: "mukta-ifix-adapter/v1/"
+  search-default-limit: 20
+  is-program-async: true
+  is-sanction-async: false
+  is-allocation-async: false
+  is-disburse-async: true
+  exchange-path: "mukta/digit-exchange/v1/exchange/"
+  exchange-service-external-url: "https://mukta.odisha.gov.in/mukta/digit-exchange"
+  program-kafka-topic: "works-ps-program-kafka-topic"
+  sanction-kafka-topic: "works-ps-sanction-kafka-topic"
+  allocation-kafka-topic: "works-ps-allocation-kafka-topic"
+  disburse-kafka-topic: "works-ps-disburse-kafka-topic"
+  error-queue: "works-ps-error-queue"
+
+digit-exchange-works:
+  tracing-enabled: true
+  java-enable-debug: true
+  app-enable-events-log: true
+  app-auth-sign-validation: true
+  app-auth-private-key: "-----BEGIN PRIVATE KEY-----MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC32lALDXQAHfzZYqxwpgXwW8cKOE4qrfg6HPQr2U4HNITyv702/l3EqVRX7lj434AhTbnuwrNEdN83bWcPpiw6PGDdLA3V0ADM+9pr2CF/0rtOp05s17NPpyJs2cyk5pFEJhWPseX9l+8LZixUz3EM/chBjlyDFIZtXRBQb/nWyr7xwAvFLcTuORtkV0oihBu+xeX/dBnze/bMyIThyCiR7nQ5z/RFn63v7sH0CeBc9mNMdoqpuzpNnPkaiYgTLr2kRAMdc/CT+MFcjCZr2577zOZatERv8xcKGOFPAFA1vEIfMWagWxHOi1UGBsX+Gz6wKoY5GGZPmIwPXegOfq6RAgMBAAECggEAAkdUJSLsTGESxG325amFGtLEX4HNpDVGRZAczZtSnn+94xVRxsf1yQ1xNGrJkwIQIDmKo6UpnCBXsOPr+lNsqmcbqzoTzNHYZLH9ZcdGuQMXW7TyoaI1wHe5k0BKy0NpSv8u1rpVd6Rlq84/H+j3RXoyvG9DgcNkHCBiZqDQp6MTwcbGPMS2xuXQBDI55Fxv/LncTrwabTOIy/HhvciO2VV57ghRQmkiFYK5IS3COW7GEllO/Pe5qnCXgz0pb/TtPZwoh682VgDUQZjnjbfdamjkOv44ds3VqHiyMnkUcCEW42wlD2GsbFCeby6edJ5twt/Kx9WRpvmUepUKcaiSgQKBgQDLjG0uVYMjvcboTTYmb9gn+lVft+FSh49tnSSp69yMhu5XCI9d7UIFBREB0y2iO8ai0wDPmlwkzKjCw+uREFp6RNxDI605kqgknWtBHNZ6ZZNFqGO5xZzxq7+YiC3GyyNoJD5lW3FUXsD70Nuo7wbS1jWzc8gmhy8VgA/wwTlf4QKBgQDnOpuWRa9XzB0hM5OFDyZx8WZZfq2YwjcTPSLj+ETDFG6UApuAco8k0HPO0Jrf6T5n82Qh4JRilyva/cMFZJNuxrxATRA5BnaWd2AyuVaSu3n1MxQe3j7+HJooLoGQraRFXz4t79I+CAGVO3SBchSyCilAQPzj0SnkMG5Xhk/ksQKBgQCLs5Gr31zmRvYhsfycXN8KcTHvRBENx6SVIulrBkqU2Hb0nRdo69IIB/YoPnxvgH9QeWlxEwxy5VReeIFRStwOVvylx/K4NQPaPYDDa7t4vgZaJLxtYEfbRnl1guGIMxvV+ioo/p3FvlLNggeA5qzUP9kTlT+l0dpq8z39i2CJgQKBgEYkGR40dUQEvrFbm9w5BEh8Gbf8HVzBTUOgv/y3SuSCRijPwavtFE7ujLKnxNM3RZ7yzeUY4uolQUBkycvQ/ogT8PbwaYNi2oY6IAxC/Gf2RsCChg/3CtS6iGi38sWYZsREZ/A3V2dJtnE2X9kEahK30luTWyMgR7zYlCAotgOBAoGBAMJYGLKCM7O7k9VF1MZpvi/AdJ8fbsLI1xjvkX6AVHtHiU045zbWHG8a64n5sL5fmp1QidXgMrK46k2VDsuAeTF4JcgOFCF97TWewX7rid8yqxoZJdUsZbR3d1wsSywIWbfw/REKGbCuPhzOkn1auk1WbKHk5zUfRIC5/WqEthFh-----END PRIVATE KEY-----"
+  app-auth-public-key: "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt9pQCw10AB382WKscKYF8FvHCjhOKq34Ohz0K9lOBzSE8r+9Nv5dxKlUV+5Y+N+AIU257sKzRHTfN21nD6YsOjxg3SwN1dAAzPvaa9ghf9K7TqdObNezT6cibNnMpOaRRCYVj7Hl/ZfvC2YsVM9xDP3IQY5cgxSGbV0QUG/51sq+8cALxS3E7jkbZFdKIoQbvsXl/3QZ83v2zMiE4cgoke50Oc/0RZ+t7+7B9AngXPZjTHaKqbs6TZz5GomIEy69pEQDHXPwk/jBXIwma9ue+8zmWrREb/MXChjhTwBQNbxCHzFmoFsRzotVBgbF/hs+sCqGORhmT5iMD13oDn6ukQIDAQAB-----END PUBLIC KEY-----"
+  app-receiver-endpoints: '{"program":"http://program-service-works.works:8080/mukta/program-service/v1/"}'
+  service-host-url: "https://mukta.odisha.gov.in/mukta/digit-exchange"
+  app-exchange-topic-name: "works-dx-exchange-topic"
+  app-error-topic-name: "works-dx-exchange-error-queue"
+  app-events-log-topic-name: "works-dx-exchange-event-log-queue"
+
+mukta-ifix-adapter:
+  tracing-enabled: true
+  java-enable-debug: true
+  egov-bill-search-limit: 100
+  mukta-adapter-default-offset: 0
+  mukta-adapter-default-limit: 10
+  egov-system-user-username: MUKTA_ADMIN
+  payment-create-topic: expense-payment-create
+  disburse-create-topic: mukta-ifix-adapter-disburse-create
+  disburse-update-topic: mukta-ifix-adapter-disburse-update
+  ifms-pi-index-enrich-topic: mukta-ifix-pi-index-enrich
+  program-service-disbursement-create-endpoint: "/mukta/program-service/v1/disburse/_create"
+  mukta-adapter-encryption-key: DisbursementEncrypt
+
+##########################################
 
 ##########################################
 
