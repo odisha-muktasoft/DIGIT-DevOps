@@ -29,6 +29,9 @@ cluster-configs:
     program-service:
       namespace: [ ifix, works ]
       name: program-service
+    elasticsearch:
+      namespace: [ ifix ]
+      name: elasticsearch-credential
 
   configmaps:
     egov-config:
