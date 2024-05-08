@@ -37,22 +37,6 @@ spec:
               readOnly: true
             - name: {{ template "name" . }}-config
               mountPath: /fluent-bit/etc/
-      affinity:       
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-           nodeSelectorTerms:
-            - matchExpressions:
-              - key: Environment
-                operator: In
-                values:
-                - {{ .Values.global.nodepool.selector }}     
-      tolerations:
-      - key: "dedicated"
-        operator: "Equal"
-        value: "{{ .Values.global.nodepool.toleration }}"
-        effect: "NoSchedule"
-      nodeSelector:
-        Environment: {{ .Values.global.nodepool.selector }}        
       terminationGracePeriodSeconds: 10
       volumes:
         - name: varlog
@@ -65,4 +49,4 @@ spec:
           configMap:
             name: {{ template "name" . }}-config
       serviceAccountName: {{ template "name" . }}
-      serviceAccount: {{ template "name" . }} 
+      serviceAccount: {{ template "name" . }}    
