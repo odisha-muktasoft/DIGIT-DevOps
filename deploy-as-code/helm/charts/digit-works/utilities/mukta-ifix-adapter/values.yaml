@@ -60,22 +60,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: expense-calculator
-  - name: EGOV_BANK_ACCOUNT_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: bankaccounts
-  - name: EGOV_INDIVIDUAL_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: individual
-  - name: EGOV_ORGANISATION_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: organisation                
+        key: expense-calculator                
   - name: EGOV_PROGRAM_SERVICE_HOST
     valueFrom:
       configMapKeyRef:
@@ -157,5 +142,20 @@ env: |
     value: redis.backbone
   - name: SPRING_REDIS_PORT
     value: "6379"
+#  - name: EGOV_BANK_ACCOUNT_HOST
+#    valueFrom:
+#      configMapKeyRef:
+#        name: egov-service-host
+#        key: bankaccounts
+#  - name: EGOV_INDIVIDUAL_HOST
+#    valueFrom:
+#      configMapKeyRef:
+#        name: egov-service-host
+#        key: individual
+#  - name: EGOV_ORGANISATION_HOST
+#    valueFrom:
+#      configMapKeyRef:
+#        name: egov-service-host
+#        key: organisation
 
   
