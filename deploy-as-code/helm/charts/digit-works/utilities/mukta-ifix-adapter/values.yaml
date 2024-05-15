@@ -153,9 +153,9 @@ env: |
   - name: MUKTA_ADAPTER_ENCRYPTION_KEY
     value: {{ index .Values "mukta-adapter-encryption-key" | quote }}
   {{- end }}
-#  - name: SPRING_REDIS_HOST
-#    value: redis.backbone
-#  - name: SPRING_REDIS_PORT
-#    value: "6379"
+  - name: SPRING_REDIS_HOST
+    value: redis.backbone
+  - name: SPRING_REDIS_PORT
+    value: "6379"
 
   
