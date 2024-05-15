@@ -148,6 +148,21 @@ env: |
       secretKeyRef:
         name: ifms-adapter
         key: clientID
+  - name: EGOV_ORGANISATION_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: organisation
+  - name: EGOV_BANK_ACCOUNT_HOST
+      valueFrom:
+        configMapKeyRef:
+          name: egov-service-host
+          key: bankaccounts
+  - name: EGOV_INDIVIDUAL_HOST
+      valueFrom:
+        configMapKeyRef:
+          name: egov-service-host
+          key: individual
   - name: IFMS_JIT_CLIENT_SECRET
     valueFrom:
       secretKeyRef:
@@ -197,18 +212,4 @@ env: |
       secretKeyRef:
         name: elasticsearch-credential
         key: password
-#  - name: EGOV_ORGANISATION_HOST
-#    valueFrom:
-#      configMapKeyRef:
-#        name: egov-service-host
-#        key: organisation
-#  - name: EGOV_BANK_ACCOUNT_HOST
-#      valueFrom:
-#        configMapKeyRef:
-#          name: egov-service-host
-#          key: bankaccounts
-#  - name: EGOV_INDIVIDUAL_HOST
-#      valueFrom:
-#        configMapKeyRef:
-#          name: egov-service-host
-#          key: individual
+  
