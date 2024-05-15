@@ -111,11 +111,26 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: expense-calculator
+  - name: EGOV_BANK_ACCOUNT_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: bankaccounts
+  - name: EGOV_INDIVIDUAL_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: individual
   - name: STATE_LEVEL_TENANT_ID
     valueFrom:
       configMapKeyRef:
         name: egov-config
         key: state-level-tenant-id
+  - name: EGOV_ORGANISATION_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: organisation
   - name: EGOV_IDGEN_HOST
     valueFrom:
       configMapKeyRef:
@@ -197,18 +212,3 @@ env: |
       secretKeyRef:
         name: elasticsearch-credential
         key: password
-#  - name: EGOV_ORGANISATION_HOST
-#    valueFrom:
-#      configMapKeyRef:
-#        name: egov-service-host
-#        key: organisation
-#  - name: EGOV_BANK_ACCOUNT_HOST
-#      valueFrom:
-#        configMapKeyRef:
-#          name: egov-service-host
-#          key: bankaccounts
-#  - name: EGOV_INDIVIDUAL_HOST
-#      valueFrom:
-#        configMapKeyRef:
-#          name: egov-service-host
-#          key: individual
