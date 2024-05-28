@@ -346,6 +346,11 @@ egov-mdms-service:
   java-args: -Dspring.profiles.active=monitoring
   masters-config-url: "file:///work-dir/mukta-mdms-data/master-config.json"
 
+mdms-v2:
+  java-args: "-Dspring.profiles.active=monitoring"
+  memory_limits: 1500Mi
+  heap: "-Xmx1300m -Xms1300m -XX:TieredStopAtLevel=1"
+
 egov-filestore:
   is-s3-enabled: "true"
   fixed-bucketname: "mukta-uat-bucket-s3"
