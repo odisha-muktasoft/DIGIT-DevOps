@@ -1,0 +1,44 @@
+# Common Labels
+labels:
+  app: "transformer-cronjob"
+  group: "transformer-cronjob"
+
+cron:
+  schedule: "0 */2 * * *"
+
+# Container Configs
+image:
+  repository: "egovio/transformer-cronjob"
+  tag: "latest"
+
+command: 
+  - "python3"
+  - "transformer.py"
+
+# Additional Container Envs
+env: |
+  - name: ES_HOST_URL
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: es-indexer-host
+  - name: ES_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: username
+  - name: ES_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: password
+  - name: ES_PI_INDEX
+    value: "ifms-pi-index"
+  - name: ES_INDIVIDUAL_INDEX
+    value: "individual-index-v1"
+  - name: ES_TRANSFORMER_PI_INDEX
+    value: "transform-ifms-pi-index"
+resources: |
+  requests: {}
+  
+    
