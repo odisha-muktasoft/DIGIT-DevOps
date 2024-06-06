@@ -38,6 +38,13 @@ env: |
     value: "individual-index-v1"
   - name: ES_TRANSFORMER_PI_INDEX
     value: "transform-ifms-pi-index"
+  - name: KAFKA_BROKER
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: kafka-brokers
+  - name: TRANSFORMER_PI_KAFKA_TOPIC
+    value: "transformer-ifms-pi-index-topic"
 resources: |
   requests: {}
   
