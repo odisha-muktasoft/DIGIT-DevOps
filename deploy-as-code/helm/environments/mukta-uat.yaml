@@ -298,7 +298,11 @@ ifms-cronjob-ftfps:
   user-name: "IFMS_CRONJOB"
   ifms-scheduler-path: "ifms-adapter/_scheduler"
 
-
+transformer-cronjob:
+  ifms-pi-index-name: "ifms-pi-index"
+  individual-index-name: "individual-index-v1"
+  transformer-ifms-pi-index-name: "transform-ifms-pi-index"
+  transformer-ifms-pi-index-kafka-topic: "transformer-ifms-pi-index-topic"
 
 expense-calculator:
   tracing-enabled: true
