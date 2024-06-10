@@ -151,12 +151,17 @@ storage:
     # es.index-prefix: test
     tls:
       enabled: true
-      secretName: elasticsearch-master-certs
+      secretName: elasticsearch-certs
       # The mount properties of the secret
       mountPath: /usr/share/elasticsearch/config/certs
       subPath: ca.crt
       # How ES_TLS_CA variable will be set in the various components
       ca: /usr/share/elasticsearch/config/certs
+    externalService:
+      enabled: true
+      name: elasticsearch-master-v8
+      externalName: elasticsearch-master-v8.es-upgrade.svc.cluster.local
+
 
   kafka:
     brokers:

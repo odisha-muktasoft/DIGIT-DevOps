@@ -152,5 +152,5 @@ cluster-configs:
       name: program-service
 
     elasticsearch:
-      namespace: [ es-upgrade, es-upgrade-infra, egov, works ]
+      namespace: [ es-upgrade, es-upgrade-infra, egov, works, monitoring ]
       name: elasticsearch-credential
