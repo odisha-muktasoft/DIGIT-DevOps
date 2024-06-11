@@ -124,7 +124,7 @@ storage:
     # cassandra.tls.enabled: "false"
   elasticsearch:
     scheme: https
-    host: elasticsearch-master-v8
+    host: elasticsearch-master-v8.es-upgrade
     port: 9200
     anonymous: false
     user: elastic
@@ -158,7 +158,7 @@ storage:
       # How ES_TLS_CA variable will be set in the various components
       ca: /usr/share/elasticsearch/config/certs
     externalService:
-      enabled: true
+      enabled: false
       name: elasticsearch-master-v8
       externalName: elasticsearch-master-v8.es-upgrade.svc.cluster.local
 
