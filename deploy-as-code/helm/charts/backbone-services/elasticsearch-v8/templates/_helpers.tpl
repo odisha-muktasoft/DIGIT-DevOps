@@ -70,7 +70,7 @@ tls.crt: {{ index $certs.data "tls.crt" }}
 tls.key: {{ index $certs.data "tls.key" }}
 ca.crt: {{ index $certs.data "ca.crt" }}
 {{- else -}}
-{{- $altNames := list ( include "elasticsearch.masterService" . ) ( printf "%s.%s" (include "elasticsearch.masterService" .) .Release.Namespace ) ( printf "%s.%s.svc" (include "elasticsearch.masterService" .) .Release.Namespace ) -}}
+{{- $altNames := list ( include "elasticsearch.masterService" . ) ( printf "%s.%s" (include "elasticsearch.masterService" .) .Values.namespace ) ( printf "%s.%s.svc" (include "elasticsearch.masterService" .) .Values.namespace ) -}}
 {{- $ca := genCA "elasticsearch-ca" 365 -}}
 {{- $cert := genSignedCert ( include "elasticsearch.masterService" . ) nil $altNames 365 $ca -}}
 tls.crt: {{ $cert.Cert | toString | b64enc }}
