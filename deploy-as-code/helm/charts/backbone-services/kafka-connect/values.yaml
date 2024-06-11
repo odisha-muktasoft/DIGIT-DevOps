@@ -63,4 +63,14 @@ env: |
   - name: "CONNECT_VALUE_CONVERTER"
     value: "org.apache.kafka.connect.json.JsonConverter"
   - name: "CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE"
-    value: "false"   
+    value: "false"
+  - name: ES_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: username
+  - name: ES_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: password
