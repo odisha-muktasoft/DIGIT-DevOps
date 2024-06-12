@@ -363,8 +363,8 @@ agent:
   #   configMap: jaeger-config
   #   readOnly: true
   envFrom: []
-  useHostNetwork: false
-  dnsPolicy: ClusterFirst
+  useHostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
   priorityClassName: ""
   initContainers: []
 
