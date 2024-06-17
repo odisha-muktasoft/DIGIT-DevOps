@@ -3,10 +3,10 @@ resource "aws_db_subnet_group" "db_subnet_group" {
   subnet_ids = "${var.subnet_ids}"
 
     tags = "${
-    map(
-      "Name", "db-subnet-group-${var.environment}",
-      "environment", "${var.environment}"
-    )
+    tomap({
+      "Name" = "db-subnet-group-${var.environment}",
+      "environment" = "${var.environment}"
+    })
   }"
 }
 
@@ -24,13 +24,16 @@ resource "aws_db_instance" "rds_postgres" {
   vpc_security_group_ids  = "${var.vpc_security_group_ids}"
   backup_retention_period = "${var.backup_retention_days}"
   db_subnet_group_name    = "${aws_db_subnet_group.db_subnet_group.name}"
+  allow_major_version_upgrade = true
+  apply_immediately = true
   copy_tags_to_snapshot   = "true"
   skip_final_snapshot     = "true"
 
     tags = "${
-    map(
-      "Name", "${var.environment}-db",
-      "environment", "${var.environment}"
-    )
+    tomap({
+      "Name" =  "${var.environment}-db",
+      "environment" = "${var.environment}"
+    })
   }"  
 }
+
