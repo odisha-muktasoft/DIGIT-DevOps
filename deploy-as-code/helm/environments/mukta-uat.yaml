@@ -1016,3 +1016,25 @@ elasticsearch-master-v8:
 kibana-v8:
   image:
     tag: 8.11.3
+
+jupyterhub:
+  hub:
+    config:
+      Authenticator:
+        admin_users:
+          - muktauatadmin
+      NativeAuthenticator:
+        minimum_password_length: 8
+        check_common_password: false
+        allowed_failed_logins: 5
+        seconds_before_next_try: 300
+      JupyterHub:
+        admin_access: true
+  ingress:
+    enabled: true
+    hosts:
+      - mukta-uat.digit.org
+    tls:
+      - hosts:
+          - mukta-uat.digit.org
+        secretName: mukta-uat.digit.org-tls-certs
