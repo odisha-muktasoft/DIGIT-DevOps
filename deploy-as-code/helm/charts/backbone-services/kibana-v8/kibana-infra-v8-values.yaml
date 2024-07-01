@@ -1,6 +1,6 @@
 ---
 elasticsearchHosts: "https://elasticsearch-master-infra-v8:9200"
-elasticsearchCertificateSecret: elasticsearch-certs
+elasticsearchCertificateSecret: elasticsearch-infra-certs
 elasticsearchCertificateAuthoritiesFile: ca.crt
 elasticsearchCredentialSecret: elasticsearch-credential
 
