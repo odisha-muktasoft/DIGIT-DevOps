@@ -788,21 +788,21 @@ kafka-v2-infra:
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-# kafka-connect-infra >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# kafka-connect >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 kafka-connect:
   replicas: 1
   images:
-    - egovio/cp-kafka-connect:5.4.1
+    - egovio/cp-kafka-connect:8.1.3
   heap: "-Xms512M -Xmx512M"
   config-storage-replication-factor: "3"
   offset-storage-replication-factor: "3"
   status-storage-replication-factor: "3"
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-# kafka-connect >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# kafka-connect-infra >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 kafka-connect-infra:
   replicas: 1
   images:
-    - egovio/cp-kafka-connect:5.4.1
+    - egovio/cp-kafka-connect:8.1.3
   heap: "-Xms512M -Xmx512M"
   config-storage-replication-factor: "3"
   offset-storage-replication-factor: "3"
