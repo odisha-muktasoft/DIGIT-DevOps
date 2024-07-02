@@ -258,7 +258,7 @@ ingress:
   #   nginx.ingress.kubernetes.io/rewrite-target: /$2
   #   nginx.ingress.kubernetes.io/use-regex: "true"
   labels: {}
-  path: /monitoring-upgrade
+  path: /monitoring
 
   # pathType is only for k8s >= 1.1=
   pathType: Prefix
@@ -460,7 +460,8 @@ admin:
 ## 6. uncomment the annotation section in the serviceAccount: above
 ## make sure to replace arn:aws:iam::123456789000:role/iam-role-name-here with your role arn
 
-env: {}
+env: 
+  JAEGER_AGENT_PORT: "5775"
 
 ## "valueFrom" environment variable references that will be added to deployment pods. Name is templated.
 ## ref: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#envvarsource-v1-core
@@ -779,7 +780,7 @@ dashboards:
       url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
       token: ''
     k8s-views-nodes:
-      url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
+      url: https://raw.githubusercontent.com/odisha-muktasoft/DIGIT-DevOps/alerting-setup/deploy-as-code/helm/charts/monitoring/k8s-views-nodes.json
       token: ''
     k8s-views-pods:
       url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
@@ -828,7 +829,7 @@ grafana.ini:
 ## grafana Authentication can be enabled with the following values on grafana.ini
   # server:
       # The full public facing url you use in browser, used for redirects and emails
-    root_url: "https://{{- if and .Values.ingress.enabled .Values.ingress.hosts -}}{{ .Values.ingress.hosts | first }}{{ end }}/monitoring-upgrade"
+    root_url: "https://{{- if and .Values.ingress.enabled .Values.ingress.hosts -}}{{ .Values.ingress.hosts | first }}{{ end }}/monitoring"
     serve_from_sub_path: true
   auth.github:
       enabled: true

@@ -6,10 +6,10 @@ repositories:
 - name: jaegertracing
   url: https://jaegertracing.github.io/helm-charts
 
-values:
-  - namespace: prometheus
-  - ../environments/env.yaml
-  - ../environments/env-secrets.yaml
+values: 
+  - namespace: monitoring
+  - ../../environments/mukta-prod-secrets.yaml
+  - ../../environments/mukta-prod.yaml
 
 
 
@@ -39,12 +39,9 @@ releases:
   version: 0.35.0
   values:
   - ./values/jaeger.yaml
-  # - storage:
-  #     elasticsearch:
-  #       password: {{ .Values.secrets.elasticsearch.password }}
   set:
     - name: query.ingress.hosts[0]
-      value: "{{ .Values.global.domain }}"
+      value: "{{ .Values.domain }}"
 
 - name: grafana
   installed: true
@@ -54,18 +51,16 @@ releases:
   values:
   - ./values/grafana.yaml
   - envRenderSecret:
-      GF_AUTH_GITHUB_CLIENT_ID: {{ .Values.secrets.oauth2.clientID }}
-      GF_AUTH_GITHUB_CLIENT_SECRET: {{ .Values.secrets.oauth2.clientSecret }}
+      GF_AUTH_GITHUB_CLIENT_ID: {{ index .Values "cluster-configs" "secrets" "grafana" "clientID" }}
+      GF_AUTH_GITHUB_CLIENT_SECRET: {{ index .Values "cluster-configs" "secrets" "grafana" "clientSecret" }}
   set:
     - name: ingress.hosts[0]
-      value: "{{ .Values.global.domain }}"
+      value: "{{ .Values.domain }}"
     - name: ingress.tls[0].hosts[0]
-      value: {{ .Values.global.domain | quote }}
+      value: "{{ .Values.domain }}"
 
 - name: blackbox
-  installed: false
+  installed: true
   namespace: {{ .Values.namespace | default "default-namespace" }}
-  chart: prometheus-community/prometheus-blackbox-exporter
+  chart: ../backbone-services/prometheus-blackbox-exporter
   version: 8.2.0
-  values:
-  - ./values/blackbox-exporter.yaml     

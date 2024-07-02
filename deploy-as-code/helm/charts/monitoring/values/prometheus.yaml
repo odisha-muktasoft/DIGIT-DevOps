@@ -278,6 +278,18 @@ additionalPrometheusRules:
            summary: Kubernetes PersistentVolumeClaim pending ({{ $labels.namespace }}/{{ $labels.persistentvolumeclaim }})
            description: "Persistent volume {{ $labels.persistentvolume }} is in bad state\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
            repeat_interval: 30m
+ - name: sslalerts
+   groups:
+     - name: sslcertificateexpiration
+       rules:
+        - alert: SSLCertExpiringSoon
+          expr: probe_ssl_earliest_cert_expiry{job="web-probe"} - time() < 86400 * 20
+          for: 60m
+          labels:
+            severity: warning
+          annotations:
+            summary: "SSL certificate is about to expire"
+            description: "SSL Certificate for {{`{{`}}$labels.instance{{`}}`}} expires in {{`{{`}} .Value | humanizeDuration {{`}}`}}."
 
 ## Provide custom recording or alerting rules to be deployed into the cluster.
 ##
@@ -397,24 +409,24 @@ alertmanager:
       receiver: default
       group_wait: 30s
       group_interval: 5m
-      repeat_interval: 30m
+      repeat_interval: 10m
       routes:
-      - receiver: slack-notification
-        match:
-          severity: warning
-        continue: true  
+      # - receiver: slack-notification
+      #   match:
+      #     severity: warning
+      #   continue: true  
       - receiver: slack-notification
         match:
           severity: critical
         continue: true
-      - receiver: email-notification
-        match:
-          severity: critical
-        continue: true
-      - receiver: email-notification
-        match:
-          severity: warning
-        continue: true
+      # - receiver: email-notification
+      #   match:
+      #     severity: critical
+      #   continue: true
+      # - receiver: email-notification
+      #   match:
+      #     severity: warning
+      #   continue: true
 
     receivers:
     - name: default
@@ -437,34 +449,34 @@ alertmanager:
             - *namespace:* `{{ .Labels.namespace }}`
             {{ end }}
 
-    - name: email-notification
-      email_configs:
-        - to: 'gowtham.chowdam@egovernments.org'
-          from: 'unified.alerts@example.com'
-          smarthost: 'smtp.gmail.com:587'
-          auth_username: 'unified.alerts@egovernments.org'
-          auth_password: 'mujp cgjj fwxa whyd'
-          send_resolved: true 
-          headers:
-            subject: |
-              [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.cluster }} - {{ .CommonLabels.alertname }}
-          html: |
-            <html>
-            <head>
-            <title>Alert!</title>
-            </head>
-            <body>
-            {{ range .Alerts.Firing }}
-            <ul>
-            <li> <b>Alert Name:</b> {{ .Labels.alertname }} </li>
-            {{ if .Labels.pod }}<li> <b>Pod:-</b> {{ .Labels.pod }} </li>{{ end }}
-            {{ if .Labels.persistentvolumeclaim }}<li> <b>PVC:-</b> {{ .Labels.persistentvolumeclaim }} </li>{{ end }}
-            <li> <b>Severity:</b> {{ if eq .Labels.severity "critical" }}<b style="color:red;">CRITICAL</b>{{ else if eq .Labels.severity "warning" }}<b style="color:orange;">WARNING</b>{{ else }}<b>{{ .Labels.severity | toUpper }}</b>{{ end }} </li>
-            <li> <b>Namespace:</b> {{ .Labels.namespace }} </li>
-            <li> <b>Cluster:</b> {{ .Labels.cluster }} </li>
-            </ul><br>
-            {{ end }}
-            </body></html>
+    # - name: email-notification
+    #   email_configs:
+    #     - to: 'gowtham.chowdam@egovernments.org'
+    #       from: 'unified.alerts@example.com'
+    #       smarthost: 'smtp.gmail.com:587'
+    #       auth_username: 'unified.alerts@egovernments.org'
+    #       auth_password: 'mujp cgjj fwxa whyd'
+    #       send_resolved: true 
+    #       headers:
+    #         subject: |
+    #           [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.cluster }} - {{ .CommonLabels.alertname }}
+    #       html: |
+    #         <html>
+    #         <head>
+    #         <title>Alert!</title>
+    #         </head>
+    #         <body>
+    #         {{ range .Alerts.Firing }}
+    #         <ul>
+    #         <li> <b>Alert Name:</b> {{ .Labels.alertname }} </li>
+    #         {{ if .Labels.pod }}<li> <b>Pod:-</b> {{ .Labels.pod }} </li>{{ end }}
+    #         {{ if .Labels.persistentvolumeclaim }}<li> <b>PVC:-</b> {{ .Labels.persistentvolumeclaim }} </li>{{ end }}
+    #         <li> <b>Severity:</b> {{ if eq .Labels.severity "critical" }}<b style="color:red;">CRITICAL</b>{{ else if eq .Labels.severity "warning" }}<b style="color:orange;">WARNING</b>{{ else }}<b>{{ .Labels.severity | toUpper }}</b>{{ end }} </li>
+    #         <li> <b>Namespace:</b> {{ .Labels.namespace }} </li>
+    #         <li> <b>Cluster:</b> {{ .Labels.cluster }} </li>
+    #         </ul><br>
+    #         {{ end }}
+    #         </body></html>
     # templates:
     # - '/etc/alertmanager/config/*.tmpl'
 
@@ -3765,7 +3777,7 @@ prometheus:
     additionalScrapeConfigs: 
       - job_name: 'nginx-ingress-metrics'
         static_configs:
-          - targets: ['nginx-ingress-metrics.egov:10254']
+          - targets: ['nginx-ingress-metrics:10254']
       - job_name: 'blackbox'
         metrics_path: /probe
         params:
@@ -3795,10 +3807,10 @@ prometheus:
           - source_labels: [__param_target]
             target_label: instance
           - target_label: __address__
-            replacement: prometheus-blackbox-exporter:9115 
+            replacement: blackbox-prometheus-blackbox-exporter:9115 
       - job_name: 'blackbox_exporter'  # collect blackbox exporter's operational metrics.
         static_configs:
-          - targets: ['prometheus-blackbox-exporter.prometheus:9115']
+          - targets: ['blackbox-prometheus-blackbox-exporter:9115']
     ## If additional scrape configurations are already deployed in a single secret file you can use this section.
     ## Expected values are the secret name and key
     ## Cannot be used with additionalScrapeConfigs
