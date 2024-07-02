@@ -14,6 +14,7 @@ cluster-configs:
         works,
         es-cluster,
         es-upgrade,
+        es-upgrade-infra,
         kafka-cluster,
         logging,
         monitoring,
@@ -787,21 +788,21 @@ kafka-v2-infra:
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-# kafka-connect-infra >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# kafka-connect >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 kafka-connect:
   replicas: 1
   images:
-    - egovio/cp-kafka-connect:5.2.2
+    - egovio/cp-kafka-connect:8.1.3
   heap: "-Xms512M -Xmx512M"
   config-storage-replication-factor: "3"
   offset-storage-replication-factor: "3"
   status-storage-replication-factor: "3"
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-# kafka-connect >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# kafka-connect-infra >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 kafka-connect-infra:
   replicas: 1
   images:
-    - egovio/cp-kafka-connect:5.2.2
+    - egovio/cp-kafka-connect:8.1.3
   heap: "-Xms512M -Xmx512M"
   config-storage-replication-factor: "3"
   offset-storage-replication-factor: "3"
@@ -859,28 +860,7 @@ elasticsearch-data-v1:
       # cpu: "1000m"
       memory: "2Gi"
 
-# es-infra-v1-cluster >>>>>>>>>>>>>>>>>>>>>>>>>>>>
-elasticsearch-data-infra-v1:
-  image:
-    tag: 6.6.2
-  persistence:
-    enabled: true
-    aws:
-      - volumeId: "vol-040c71247476c1637"
-        zone: ap-south-1b
-      - volumeId: "vol-0edc315a911fd5447"
-        zone: ap-south-1b
-      - volumeId: "vol-0028566d183cb29dc"
-        zone: ap-south-1b
 
-  esJavaOpts: "-Xmx1g -Xms1g"
-  resources:
-    requests:
-      # cpu: "1000m"
-      memory: "2Gi"
-    limits:
-      # cpu: "1000m"
-      memory: "2Gi"
 
 elasticsearch-master-v1:
   replicas: 3
@@ -1041,28 +1021,7 @@ grafana:
   # ingress:
   #   hostName: minio-staging.digit.org
 
-elasticsearch-data-v8:
-  image:
-    tag: 8.11.3
-  persistence:
-    enabled: true
-    aws:
-      - volumeId: "vol-09a272b2c42b8305e"
-        zone: ap-south-1b
-      - volumeId: "vol-023d1771ce53bfc81"
-        zone: ap-south-1b
-      - volumeId: "vol-0d61d2d7a52f4815e"
-        zone: ap-south-1b
-
-  esJavaOpts: "-Xmx1g -Xms1g"
-  resources:
-    requests:
-      # cpu: "1000m"
-      memory: "2Gi"
-    limits:
-      # cpu: "1000m"
-      memory: "2Gi"
-
+# es-cluster >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 elasticsearch-master-v8:
   replicas: 3
   image:
@@ -1080,10 +1039,78 @@ elasticsearch-master-v8:
   esJavaOpts: "-Xmx448m -Xms448m"
   resources:
     requests:
-      memory: "896Mi"
+      memory: "1Gi"
     limits:
-      memory: "896Mi"
+      memory: "1Gi"
+
+elasticsearch-data-v8:
+  image:
+    tag: 8.11.3
+  persistence:
+    enabled: true
+    aws:
+      - volumeId: "vol-09a272b2c42b8305e"
+        zone: ap-south-1b
+      - volumeId: "vol-023d1771ce53bfc81"
+        zone: ap-south-1b
+      - volumeId: "vol-0d61d2d7a52f4815e"
+        zone: ap-south-1b
+
+  esJavaOpts: "-Xmx2g -Xms2g"
+  resources:
+    requests:
+      memory: "3Gi"
+    limits:
+      memory: "3Gi"
 
 kibana-v8:
   image:
     tag: 8.11.3
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# es-infra-cluster >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+elasticsearch-master-infra-v8:
+  replicas: 3
+  image:
+    tag: 8.11.3
+  persistence:
+    enabled: true
+    aws:
+      - volumeId: "vol-0ce9c2b59017972dd"
+        zone: ap-south-1b
+      - volumeId: "vol-0aad77033569bcb98"
+        zone: ap-south-1b
+      - volumeId: "vol-05089f8f0d71971bb"
+        zone: ap-south-1b
+
+  esJavaOpts: "-Xmx448m -Xms448m"
+  resources:
+    requests:
+      memory: "1Gi"
+    limits:
+      memory: "1Gi"
+
+elasticsearch-data-infra-v8:
+  image:
+    tag: 8.11.3
+  persistence:
+    enabled: true
+    aws:
+      - volumeId: "vol-0b57c16b5a3bb6cef"
+        zone: ap-south-1b
+      - volumeId: "vol-09772f0e34b9117ef"
+        zone: ap-south-1b
+      - volumeId: "vol-0ec131e8aa430e1ec"
+        zone: ap-south-1b
+
+  esJavaOpts: "-Xmx2g -Xms2g"
+  resources:
+    requests:
+      memory: "3Gi"
+    limits:
+      memory: "3Gi"
+
+kibana-infra-v8:
+  image:
+    tag: 8.11.3
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
