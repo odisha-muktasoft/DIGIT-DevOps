@@ -33,6 +33,11 @@ cluster-configs:
     appRoot: works-ui
     serviceName: works-ui
 
+  secrets:
+    elasticsearch:
+      namespace: [ es-upgrade, monitoring, kafka-cluster, egov, works ]
+      name: elasticsearch-credential
+
   configmaps:
     egov-config:
       namespace: [ egov , works ]
