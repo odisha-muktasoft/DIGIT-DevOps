@@ -63,8 +63,8 @@ protocol: http
 
 serverHost: "0.0.0.0"
 
-healthCheckPath: "/kibana-infra/app/kibana"
-serverBasePath: /kibana-infra
+healthCheckPath: "/kibana-infra-v8/app/kibana"
+serverBasePath: /kibana-infra-v8
 
 # Allows you to add any config files in /usr/share/kibana/config/
 # such as kibana.yml
