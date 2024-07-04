@@ -132,6 +132,7 @@ cluster-configs:
         digit-exchange: "http://digit-exchange-works.works:8080/"
         mukta-ifix-adapter: "http://mukta-ifix-adapter.works:8080/"
         ifix-program-service: "http://program-service.ifix:8080/"
+        statements: "http://statements.works:8080/"
 
 
 #######------WORKS-----######
@@ -331,6 +332,17 @@ expense:
   business-workflow-status-map : "{'EXPENSE.WAGES':'true','EXPENSE.PURCHASE':'true','EXPENSE.SUPERVISION':'true'}"
   notification-sms-enabled: "false"
 
+rate-analysis:
+  java-enable-debug: true
+  labour-cess-head-code: LC.23
+  labour-cess-rate: 1
+  works-sor-type: W
+
+statements:
+  java-enable-debug: true
+  tracing-enabled: true
+
+
 works-inbox-service:
   java-enable-debug: true
   tracing-enabled: true
@@ -395,7 +407,7 @@ egov-idgen:
   autocreate-new-seq: "true"
 
 egov-persister:
-  persist-yml-path: "file:///work-dir/mukta-configs/egov-persister/estimate-service.yml,file:///work-dir/mukta-configs/egov-persister/hrms-employee-persister.yml,file:///work-dir/mukta-configs/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/mukta-configs/egov-persister/attendance-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/muster-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/project-persister.yml,file:///work-dir/mukta-configs/egov-persister/audit-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/individual-persister.yml,file:///work-dir/mukta-configs/egov-persister/service-request-persister.yml,file:///work-dir/mukta-configs/egov-persister/contract-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expensebilling-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/bankaccounts-persister.yml,file:///work-dir/mukta-configs/egov-persister/organisation-persister.yml,file:///work-dir/mukta-configs/egov-persister/expence-calculator-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expense-bill-payment-persister.yaml,file:///work-dir/mukta-configs/egov-persister/mdms-persister.yml,file:///work-dir/mukta-configs/egov-persister/measurement-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/measurement-persister.yml,file:///work-dir/mukta-configs/egov-persister/mukta-ifix-adapter-persister.yml"
+  persist-yml-path: "file:///work-dir/mukta-configs/egov-persister/estimate-service.yml,file:///work-dir/mukta-configs/egov-persister/hrms-employee-persister.yml,file:///work-dir/mukta-configs/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/mukta-configs/egov-persister/attendance-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/muster-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/project-persister.yml,file:///work-dir/mukta-configs/egov-persister/audit-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/individual-persister.yml,file:///work-dir/mukta-configs/egov-persister/service-request-persister.yml,file:///work-dir/mukta-configs/egov-persister/contract-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expensebilling-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/bankaccounts-persister.yml,file:///work-dir/mukta-configs/egov-persister/organisation-persister.yml,file:///work-dir/mukta-configs/egov-persister/expence-calculator-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/expense-bill-payment-persister.yaml,file:///work-dir/mukta-configs/egov-persister/mdms-persister.yml,file:///work-dir/mukta-configs/egov-persister/measurement-service-persister.yml,file:///work-dir/mukta-configs/egov-persister/measurement-persister.yml,file:///work-dir/mukta-configs/egov-persister/mukta-ifix-adapter-persister.yml,file:///work-dir/mukta-configs/egov-persister/statement-persister.yml,file:///work-dir/mukta-configs/egov-persister/rate-analysis-service-persister.yml"
   initContainers:
     gitSync:
       repo: "git@github.com:odisha-muktasoft/mukta-configs"
@@ -541,8 +553,8 @@ pdf-service:
     gitSync:
       repo: "git@github.com:odisha-muktasoft/mukta-configs"
       branch: "UAT"
-  data-config-urls: "file:///work-dir/mukta-configs/pdf-service/data-config/works-estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/project-detail.json,file:///work-dir/mukta-configs/pdf-service/data-config/estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/nominal-muster-roll.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order_ia.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order_ip.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order-odiya_ia.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order-odiya_ip.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order-odiya.json,file:///work-dir/mukta-configs/pdf-service/data-config/detailed-estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/deviation-statement.json,file:///work-dir/mukta-configs/pdf-service/data-config/measurement-book.json"
-  format-config-urls: "file:///work-dir/mukta-configs/pdf-service/format-config/works-estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/project-detail.json,file:///work-dir/mukta-configs/pdf-service/format-config/estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/nominal-muster-roll.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order_ia.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order_ip.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order-odiya_ia.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order-odiya_ip.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order-odiya.json,file:///work-dir/mukta-configs/pdf-service/format-config/detailed-estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/deviation-statement.json,file:///work-dir/mukta-configs/pdf-service/format-config/measurement-book.json"
+  data-config-urls: "file:///work-dir/mukta-configs/pdf-service/data-config/works-estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/project-detail.json,file:///work-dir/mukta-configs/pdf-service/data-config/estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/nominal-muster-roll.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order_ia.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order_ip.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order-odiya_ia.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order-odiya_ip.json,file:///work-dir/mukta-configs/pdf-service/data-config/work-order-odiya.json,file:///work-dir/mukta-configs/pdf-service/data-config/detailed-estimate.json,file:///work-dir/mukta-configs/pdf-service/data-config/deviation-statement.json,file:///work-dir/mukta-configs/pdf-service/data-config/measurement-book.json,file:///work-dir/mukta-configs/pdf-service/data-config/analysis-statement.json,file:///work-dir/mukta-configs/pdf-service/data-config/utilization-statement.json"
+  format-config-urls: "file:///work-dir/mukta-configs/pdf-service/format-config/works-estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/project-detail.json,file:///work-dir/mukta-configs/pdf-service/format-config/estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/nominal-muster-roll.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order_ia.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order_ip.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order-odiya_ia.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order-odiya_ip.json,file:///work-dir/mukta-configs/pdf-service/format-config/work-order-odiya.json,file:///work-dir/mukta-configs/pdf-service/format-config/detailed-estimate.json,file:///work-dir/mukta-configs/pdf-service/format-config/deviation-statement.json,file:///work-dir/mukta-configs/pdf-service/format-config/measurement-book.json,file:///work-dir/mukta-configs/pdf-service/format-config/analysis-statement.json,file:///work-dir/mukta-configs/pdf-service/format-config/utilization-statement.json"
 egov-searcher:
   search-yaml-path: "file:///work-dir/mukta-configs/egov-searcher/inboxestimatesearch.yml"
   initContainers:
