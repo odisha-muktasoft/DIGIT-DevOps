@@ -85,7 +85,7 @@ env: |
         name: egov-service-host
         key: egov-workflow-v2
   - name: STATE_LEVEL_TENANT_ID
-     valueFrom:
-       configMapKeyRef:
-         name: egov-config
-         key: egov-state-level-tenant-id
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: egov-state-level-tenant-id
