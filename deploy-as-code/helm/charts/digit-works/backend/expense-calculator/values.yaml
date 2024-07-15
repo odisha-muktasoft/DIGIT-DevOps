@@ -118,3 +118,7 @@ env: |
         key: egov-state-level-tenant-id
   - name: EXPENSE_SOR_MIGRATION_MAPPING
     value: {{ index .Values "expense-sor-migration-mapping" | quote }}
+  {{- if index .Values "expense-billing-default-limit" }}
+  - name: EXPENSE_BILLING_DEFAULT_LIMIT
+    value: {{ index .Values "expense-billing-default-limit" | quote }}
+  {{- end }}    
