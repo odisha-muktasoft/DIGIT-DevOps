@@ -163,4 +163,9 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: statements        
+        key: statements       
+  - name: EGOV_MDMS_V2_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-mdms-service-v2
