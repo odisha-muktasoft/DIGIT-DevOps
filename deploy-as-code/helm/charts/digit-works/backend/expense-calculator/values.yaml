@@ -110,7 +110,7 @@ env: |
   - name: INDIVIDUAL_UPDATE_CONTEXT_PATH
     value: "individual/v1/_update"
   - name: IS_TESTING
-    value: "true"
+    value: "false"
   - name: STATE_LEVEL_TENANT_ID
     valueFrom:
       configMapKeyRef:
