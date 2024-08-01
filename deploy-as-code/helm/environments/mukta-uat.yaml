@@ -143,6 +143,8 @@ estimate-service:
   estimate-search-max-limit: 200
   estimate-workflow-business-service: "ESTIMATE"
   notification-sms-enabled: "false"
+  is-caching-enabled: true
+  redis-expiry-time: 3600
 
   
 attendance-service:
