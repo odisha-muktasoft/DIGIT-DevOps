@@ -192,9 +192,9 @@ env: |
   - name: NOTIFICATION_SMS_ENABLED
     value: {{ index .Values "notification-sms-enabled" | quote }} 
   {{- end }}
-   - name: SPRING_DATA_REDIS_HOST
+  - name: SPRING_DATA_REDIS_HOST
     value: redis.backbone
-  -name: SPRING_DATA_REDIS_PORT
+  - name: SPRING_DATA_REDIS_PORT
     value: "6379"
   {{- if index .Values "redis-expiry-time" }}
   - name: REDIS_EXPIRY_TIME
