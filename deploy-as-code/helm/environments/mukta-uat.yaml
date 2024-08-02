@@ -847,7 +847,7 @@ kafka-kraft:
   controller:
     persistence:
       enabled: true
-      size: 100Gi
+      size: 50Gi
     heapOpts: "-Xms2560M -Xmx2560M"
     resources:
       limits:
