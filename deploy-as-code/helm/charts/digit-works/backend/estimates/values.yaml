@@ -162,3 +162,15 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: kafka-brokers
+  {{- if index .Values "is-caching-enabled" }}
+  - name: IS_CACHING_ENABLED
+    value: {{ index .Values "is-caching-enabled" | quote }} 
+  {{- end }} 
+  - name: SPRING_DATA_REDIS_HOST
+    value: redis.backbone
+  - name: SPRING_DATA_REDIS_PORT
+    value: "6379"
+  {{- if index .Values "redis-expiry-time" }}
+  - name: REDIS_EXPIRY_TIME
+    value: {{ index .Values "redis-expiry-time" | quote }}
+  {{- end }}

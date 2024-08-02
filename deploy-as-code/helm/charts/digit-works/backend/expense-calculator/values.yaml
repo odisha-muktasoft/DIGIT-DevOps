@@ -107,3 +107,20 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: individual
+  - name: INDIVIDUAL_UPDATE_CONTEXT_PATH
+    value: "individual/v1/_update"
+  - name: IS_TESTING
+    value: "false"
+  - name: STATE_LEVEL_TENANT_ID
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: egov-state-level-tenant-id  
+  {{- if index .Values "expense-billing-default-limit" }}
+  - name: EXPENSE_BILLING_DEFAULT_LIMIT
+    value: {{ index .Values "expense-billing-default-limit" | quote }} 
+  {{- end }}
+  {{- if index .Values "expense-billing-default-offset" }}
+  - name: EXPENSE_BILLING_DEFAULT_OFFSET
+    value: {{ index .Values "expense-billing-default-offset" | quote }} 
+  {{- end }}
