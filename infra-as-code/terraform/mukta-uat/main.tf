@@ -197,7 +197,11 @@ resource "aws_iam_policy" "custom_ebs_policy" {
         Action = [
           "ec2:CreateVolume",
           "ec2:AttachVolume",
-          "ec2:CreateTags"
+          "ec2:DetachVolume",
+          "ec2:CreateTags",
+          "ec2:DescribeVolumes",
+          "ec2:DescribeVolumeStatus",
+          "ec2:ModifyVolume"
         ]
         Resource = "*"
       }
