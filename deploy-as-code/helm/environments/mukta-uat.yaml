@@ -857,7 +857,16 @@ kafka-kraft:
         memory: 4096Mi
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
+# kafka-connect >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+kafka-connect:
+  replicas: 1
+  images:
+    - egovio/cp-kafka-connect:8.1.3
+  heap: "-Xms512M -Xmx512M"
+  config-storage-replication-factor: "3"
+  offset-storage-replication-factor: "3"
+  status-storage-replication-factor: "3"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 # es-v1-cluster >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 elasticsearch-data-v1:
   image:
