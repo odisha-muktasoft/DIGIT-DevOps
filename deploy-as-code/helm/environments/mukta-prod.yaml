@@ -12,20 +12,17 @@ cluster-configs:
         cert-manager,
         egov,
         works,
-        es-cluster,
         es-upgrade,
-        es-upgrade-infra,
-        kafka-cluster,
+        kafka-kraft,
         logging,
         monitoring,
         playground,
         zookeeper-cluster,
-        es-cluster-infra,
       ]
 
   rbac:
     - role: user
-      namespaces: [egov, works, playground, kafka-cluster]
+      namespaces: [egov, works, playground, kafka-kraft]
     - role: admin
       namespaces: [playground]
 
@@ -37,7 +34,7 @@ cluster-configs:
 
   configmaps:
     egov-config:
-      namespace: [ egov , works , es-cluster-infra ]
+      namespace: [ egov , works ]
       data:
         db-host: "mukta-prod-db.csju60oewij7.ap-south-1.rds.amazonaws.com"
         db-name: "mukta_prod_db"
@@ -48,7 +45,7 @@ cluster-configs:
         es-host: "elasticsearch-data-v8.es-upgrade"
         es-indexer-host: "https://elasticsearch-data-v8.es-upgrade:9200/"
         flyway-locations: "filesystem:/flyway/sql,filesystem:/flyway/seed,filesystem:/flyway/master"
-        kafka-brokers: "kafka-v2.kafka-cluster:9092"
+        kafka-brokers: "kafka-kraft-controller-headless.kafka-kraft:9092"
         kafka-infra-brokers: "kafka-v2-infra.kafka-cluster:9092"
         logging-level-jdbc: "debug"
         mobile-validation-workaround: "true"
@@ -766,6 +763,22 @@ kafka-v2:
   minInsyncReplicas: "1"
   offsetsReplicationFactor: "3"
 
+# kafka-kraft >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+kafka-kraft:
+  controller:
+    persistence:
+      enabled: true
+      size: 100Gi
+    heapOpts: "-Xms2560M -Xmx2560M"
+    resources:
+      limits:
+        memory: 4096Mi
+      requests:
+        cpu: 500m
+        memory: 4096Mi
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 kafka-v2-infra:
   persistence:
@@ -1114,3 +1127,11 @@ kibana-infra-v8:
   image:
     tag: 8.11.3
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+kafka-ui:
+  yamlApplicationConfig:
+    kafka:
+      clusters:
+      - name: mukta-prod
+        bootstrapServers: kafka-kraft-controller-headless.kafka-kraft:9092
+        readonly: true
