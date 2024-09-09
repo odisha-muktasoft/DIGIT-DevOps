@@ -3,6 +3,8 @@ global:
   tracing-enabled: true
   setup: fullsetup
 
+domain: mukta.odisha.gov.in
+
 cluster-configs:
   namespaces:
     create: true
