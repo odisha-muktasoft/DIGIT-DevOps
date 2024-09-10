@@ -158,12 +158,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: mukta-services
-  - name: RATE_ANALYSIS_STATEMENTS_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: statements       
+        key: mukta-services      
   - name: EGOV_MDMS_V2_HOST
     valueFrom:
       configMapKeyRef:
