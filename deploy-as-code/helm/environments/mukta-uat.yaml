@@ -948,16 +948,20 @@ playground:
     - egovio/playground:ubuntu-18-elasticdump
 
 pgadmin:
-  images:
-    - egovio/pgadmin:v0.1
-
-pgadmin-config:
-  host: "mukta-uat-db.ctm6jbmr5mnj.ap-south-1.rds.amazonaws.com"
-  db-admin-username: "mukta_uat"
-  db-read-username: "muktauat_readonly"
-  port: "5432"
-  env: "UAT"
-  maintenance-db-name: "mukta_uat_pg_db"
+  dbUrl: "mukta-uat-db.ctm6jbmr5mnj.ap-south-1.rds.amazonaws.com"
+  environment: "MuktaSoft_UAT"
+  maintenance-db-name: "mukta_uat_db"
+  db-admin-username: "muktauat"
+  db-read-username: "muktauat_read"
+  max-query-history: "50"
+  max-login-attempts: "10"
+  enable-save-password: "False"
+  persistence:
+    enabled: true
+    dataDirSize: "5Gi"
+    aws:
+      volumeId: "vol-0d1c26d93f644bae9"
+      zone: ap-south-1b
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 

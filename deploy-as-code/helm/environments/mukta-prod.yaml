@@ -958,16 +958,20 @@ playground:
     - egovio/playground:ubuntu-18-elasticdump
 
 pgadmin:
-  images:
-    - egovio/pgadmin:v0.1
-
-pgadmin-config:
-  host: "mukta-prod-db.ctm6jbmr5mnj.ap-south-1.rds.amazonaws.com"
+  dbUrl: "mukta-prod-db.csju60oewij7.ap-south-1.rds.amazonaws.com"
+  environment: "MuktaSoft_PROD"
+  maintenance-db-name: "mukta_prod_db"
   db-admin-username: "muktaprod"
-  db-read-username: "muktaprod_readonly"
-  port: "5432"
-  env: "master"
-  maintenance-db-name: "mukta_prod_pg_db"
+  db-read-username: "mukta_read"
+  max-query-history: "50"
+  max-login-attempts: "10"
+  enable-save-password: "False"
+  persistence:
+    enabled: true
+    dataDirSize: "10Gi"
+    aws:
+      volumeId: "vol-09d6b420a5e4350a7"
+      zone: ap-south-1b
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
