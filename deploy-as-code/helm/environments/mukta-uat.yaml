@@ -163,8 +163,8 @@ attendance:
   tracing-enabled: true
   java-enable-debug: false
   attendance-register-default-offset: 0
-  attendance-register-default-limit: 10
-  attendance-register-search-max-limit: 1000
+  attendance-register-default-limit: 1000
+  attendance-register-search-max-limit: 5000
   attendance-individual-service-integration-required: false
   attendance-staff-service-integration-required: false
   attendance-document-id-verification-required: false
