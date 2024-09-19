@@ -23,12 +23,12 @@ provider "kubernetes" {
 }
 
 resource "aws_db_instance" "db" {
-  allocated_storage                     = "10"
+  allocated_storage                     = "25"
   availability_zone                     = "ap-south-1b"
   backup_retention_period               = "7"
   backup_target                         = "region"
   backup_window                         = "20:18-20:48"
-  ca_cert_identifier                    = "rds-ca-2019"
+  ca_cert_identifier                    = "rds-ca-rsa2048-g1"
   copy_tags_to_snapshot                 = "true"
   customer_owned_ip_enabled             = "false"
   db_name                               = "${var.db_name}"
@@ -50,8 +50,8 @@ resource "aws_db_instance" "db" {
   network_type                          = "IPV4"
   option_group_name                     = "default:postgres-12"
   parameter_group_name                  = "default.postgres12"
-  performance_insights_enabled          = "false"
-  performance_insights_retention_period = "0"
+  performance_insights_enabled          = "true"
+  performance_insights_retention_period = "7"
   port                                  = "5432"
   publicly_accessible                   = "false"
   storage_encrypted                     = "false"
@@ -114,9 +114,41 @@ resource "aws_eks_cluster" "eks" {
     security_group_ids      = ["sg-0ff6dc48f50dcca02"]
     subnet_ids              = ["subnet-071be1437a83e45f6", "subnet-081f414b49b1cbf99", "subnet-0a5a6062fc679e8ac", "subnet-0ff6ce7f80e4edd07"]
   }
+
+  enabled_cluster_log_types     = []
+}
+
+resource "aws_launch_template" "launch_template" {
+  name_prefix   = "${var.cluster_name}"
+  image_id      = data.aws_ssm_parameter.eks_ami.value
+  instance_type = "${var.instance_type}"
+  update_default_version = "true"
+  iam_instance_profile {
+    arn = "arn:aws:iam::880678429748:instance-profile/mukta-uat20230420062506854600000019"
+  }
+  user_data = "IyEvYmluL2Jhc2ggLWUKCiMgQWxsb3cgdXNlciBzdXBwbGllZCBwcmUgdXNlcmRhdGEgY29kZQoKCiMgQm9vdHN0cmFwIGFuZCBqb2luIHRoZSBjbHVzdGVyCi9ldGMvZWtzL2Jvb3RzdHJhcC5zaCAtLWI2NC1jbHVzdGVyLWNhICdMUzB0TFMxQ1JVZEpUaUJEUlZKVVNVWkpRMEZVUlMwdExTMHRDazFKU1VNdmFrTkRRV1ZoWjBGM1NVSkJaMGxDUVVSQlRrSm5hM0ZvYTJsSE9YY3dRa0ZSYzBaQlJFRldUVkpOZDBWUldVUldVVkZFUlhkd2NtUlhTbXdLWTIwMWJHUkhWbnBOUWpSWVJGUkplazFFVVhsTlJFRXlUV3BGZDA5R2IxaEVWRTE2VFVSUmVFNTZRVEpOYWtWM1QwWnZkMFpVUlZSTlFrVkhRVEZWUlFwQmVFMUxZVE5XYVZwWVNuVmFXRkpzWTNwRFEwRlRTWGRFVVZsS1MyOWFTV2gyWTA1QlVVVkNRbEZCUkdkblJWQkJSRU5EUVZGdlEyZG5SVUpCU3pST0NqSXJUQzlMUWtaVVRVVlpSRnB5ZVV4U1VuZHpWMmw2ZDFWdkwwRllWRFE1VDBaUE5USTJNakZGT0VwR1dVSXdaVmRCVUVSSVJubGpSREZNV1RCalp6a0tiWGsyZDFoRFJsb3pLM0ZoZDFaaVZYQTVTSFphWVZoYVdITnlTVnBDVjNwUmVrMUNUelJqVW5WSk5tVjFXRTlQUW1SUlF6bDFOVUppTkhNclpFOHZZZ3BMYVVWVVJGSXhPWEZxV0V3eFQzRTRUV3BvVEc5WFptNVpMeTlIVVdGSkx6QnlNVGRvYkZwMFowRk1Za1ZWVjFWalZqbHBObVp1TlhCSk1XdzJOVkJUQ2sxNVkwUlFSa1YzVW5aUldGVkdRVXQzU1hoeE1EaFdNMmh5UTNBek1qSkNPV3BVWjBGaWNUbHhORnBVWkdWVWRFOTVUM05TTjBwT2NsUkJVUzk2WTNnS2MwZE1OV2hNUVdrMGVIZzJTRWN3TkU1YVFXUnpSbGhHYXpRMVFWRkRjREZtUjFwaFlpOVRSakUzYWpsWmJVdFROalZLZFM5c1ZIbHdjRUpsUkZod1VRcERNMlJwYzIxbllqQlFlVGd5Tm10T01GZE5RMEYzUlVGQllVNWFUVVpqZDBSbldVUldVakJRUVZGSUwwSkJVVVJCWjB0clRVRTRSMEV4VldSRmQwVkNDaTkzVVVaTlFVMUNRV1k0ZDBoUldVUldVakJQUWtKWlJVWkRXV3RVVVVwNlNVZFFZM0V5T1VkUGQyaElUamxtWlc5SllreE5RbFZIUVRGVlpFVlJVVThLVFVGNVEwTnRkREZaYlZaNVltMVdNRnBZVFhkRVVWbEtTMjlhU1doMlkwNUJVVVZNUWxGQlJHZG5SVUpCU0hsSFprWm5Obk5QU0VzMlptRktRVTFIWlFwT1NVeEphRUpWUlVzM2MySlBibVZDWWxGQ1ZETXZlRkJ2Tm1kVFdtbHJWVGRqVldwaFFUQTBkRzVvY0d4b01VMHdVVTF4TmtkUVZtMVlTMlIyYkV4akNsQjNOR0pTZDNGNmQzTkZXazV5VVVZeVppdFNVVlZOWkhsMWVYSmpVRXBLUVdWS2NWQjRSM2xsUTFOamVWWnNOVkZ2UjBOWFJHbDNNSGw0UVVodlMwSUtka0pSZFVsalUwaDJaMlU0V1c1WVRXTmpaR2hOUkdOcFJHUkRPVkphUkZCSVVtWnlkbEZMY2pWMFVsZHNkaXQ0UzFReVVGTklWWGhHV25sWk0zbGtRd3BYVlRWSmVVaFJkRzVhVGpNNU1YQllWVGhEYWtSYVZWTlljRXRaTHpnemNuaFJjblpzVWpCaFpVZFFVMGx5V1hCYU1GRnFjRXhvU2tSR2RVeHNjSFYzQ2k4MWVqVm5kWGhZYWpjM2NVTlBXbVpPTVVsTGVVNDFVMVZET0RkaGNXb3hkRzE2WkdSRE1VNUVkMWxUYWpGQlJuTjZRbXBKWWk5QlJXVklVMXBzVDBRS2NGSnpQUW90TFMwdExVVk9SQ0JEUlZKVVNVWkpRMEZVUlMwdExTMHRDZz09JyAtLWFwaXNlcnZlci1lbmRwb2ludCAnaHR0cHM6Ly84NzQzMDU4Qjk3QkJBNDNCRkExM0RDRDVFQ0JGODk5Ri5ncjcuYXAtc291dGgtMS5la3MuYW1hem9uYXdzLmNvbScgIC0ta3ViZWxldC1leHRyYS1hcmdzICItLW5vZGUtbGFiZWxzPW5vZGUua3ViZXJuZXRlcy5pby9saWZlY3ljbGU9c3BvdCIgJ211a3RhLXVhdCcKCiMgQWxsb3cgdXNlciBzdXBwbGllZCB1c2VyZGF0YSBjb2Rl"
+  instance_market_options {
+    market_type = "spot"
+  }
+  metadata_options {
+    http_put_response_hop_limit = 2
+    instance_metadata_tags      = "disabled"
+  }
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size = 50
+      volume_type = "gp2"
+      delete_on_termination = "true"
+    }
+  }
+  network_interfaces {
+    security_groups = ["sg-0716e1e66f3d095bc"]
+  }
 }
 
 resource "aws_autoscaling_group" "asg" {
+  depends_on = [aws_launch_template.launch_template]
   availability_zones        = ["ap-south-1b"]
   capacity_rebalance        = "false"
   default_cooldown          = "300"
@@ -125,7 +157,6 @@ resource "aws_autoscaling_group" "asg" {
   force_delete              = "false"
   health_check_grace_period = "300"
   health_check_type         = "EC2"
-  launch_configuration      = "mukta-uat-spot2023042006250934230000001d"
   max_instance_lifetime     = "0"
   max_size                  = "${var.number_of_worker_nodes}"
   metrics_granularity       = "1Minute"
@@ -134,6 +165,11 @@ resource "aws_autoscaling_group" "asg" {
   protect_from_scale_in     = "false"
   service_linked_role_arn   = "arn:aws:iam::880678429748:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"
   suspended_processes       = ["AZRebalance"]
+
+  launch_template {
+    id      = aws_launch_template.launch_template.id
+    version = "$Default"
+  }
 
   tag {
     key                 = "KubernetesCluster"
