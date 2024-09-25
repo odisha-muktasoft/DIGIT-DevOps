@@ -107,6 +107,8 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: individual
+  - name: MUSTER_ROLL_UPDATE_TOPIC
+    value: "update-musterroll"      
   - name: INDIVIDUAL_UPDATE_CONTEXT_PATH
     value: "individual/v1/_update"
   - name: IS_TESTING
