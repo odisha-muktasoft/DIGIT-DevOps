@@ -184,7 +184,7 @@ project:
   project-mdms-module: "works"
   egov-location-hierarchy-type: "ADMIN"
 
-muster-roll-service:
+muster-roll:
   tracing-enabled: true
   #java-enable-debug: false
   musterroll-default-offset: 0
