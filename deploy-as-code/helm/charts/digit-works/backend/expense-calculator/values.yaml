@@ -126,3 +126,5 @@ env: |
   - name: EXPENSE_BILLING_DEFAULT_OFFSET
     value: {{ index .Values "expense-billing-default-offset" | quote }} 
   {{- end }}
+  - name: EXPENSE_SOR_MIGRATION_MAPPING
+    value: {{ index .Values "expense-sor-migration-mapping" | quote }}
