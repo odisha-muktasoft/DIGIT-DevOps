@@ -25,7 +25,7 @@ image:
   repository: "rate-analysis"
 replicas: "1"
 healthChecks:
-  enabled: true
+  enabled: false
   livenessProbePath: "/rate-analysis/health"
   readinessProbePath: "/rate-analysis/health"
 appType: "java-spring"
