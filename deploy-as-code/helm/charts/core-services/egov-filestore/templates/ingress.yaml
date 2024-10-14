@@ -13,8 +13,8 @@ spec:
       paths:
       - backend:
           service:
-            name: zuul
+            name: gateway
             port:
               number: 8080
         path: /{{ .Values.ingress.context }}
-        pathType: ImplementationSpecific
+        pathType: Prefix  

@@ -27,8 +27,7 @@ healthChecks:
   readinessProbePath: "/user/health"
 appType: "java-spring"
 tracing-enabled: true
-state-level-tenant-id: "pg"
-egov-state-level-tenant-id: "pg"
+egov-state-level-tenant-id: "pb"
 decryption-abac-enabled: "false"
 account-unlock-cool-down-period-minutes: "30"
 otp-validation: "true"
@@ -44,6 +43,8 @@ citizen-otp-fixed: "123456"
 citizen-otp-fixed-enabled: "true"
 heap: "-Xmx192m -Xms192m"
 java-args: ""
+memory_limits: "512Mi"
+cpu_limits: "300m"
 
 # Additional Container Envs
 env: |
@@ -59,10 +60,7 @@ env: |
         name: egov-service-host
         key: egov-otp
   - name: EGOV_USER_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: egov-user
+    value: "http://localhost:8080"
   - name: EGOV_SERVICES_ACCESSCONTROL_HOST
     valueFrom:
       configMapKeyRef:
@@ -88,21 +86,11 @@ env: |
       configMapKeyRef:
         name: egov-service-host
         key: egov-enc-service
-  - name: EGOV_LOCALIZATION_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: egov-localization
-  - name: EGOV_STATE_LEVEL_TENANT_ID
-    valueFrom:
-      configMapKeyRef:
-        name: egov-config
-        key: egov-state-level-tenant-id
   - name: STATE_LEVEL_TENANT_ID
     valueFrom:
       configMapKeyRef:
         name: egov-config
-        key: state-level-tenant-id
+        key: egov-state-level-tenant-id
   - name: DECRYPTION_ABAC_ENABLED
     value: {{ index .Values "decryption-abac-enabled" | quote }}
   - name: KAFKA_TOPIC_AUDIT
@@ -175,7 +163,10 @@ env: |
   - name: TRACER_OPENTRACING_ENABLED
     value: "true" 
   {{- end }}
-  {{- if index .Values "java-enable-debug" }}
+  {{- if index .Values "java-debug" }}
   - name: JAVA_ENABLE_DEBUG
-    value: "true"
+    value: {{ index .Values "java-debug" | quote }}
+  {{- else }}
+  - name: JAVA_ENABLE_DEBUG
+    value: "false"
   {{- end }}

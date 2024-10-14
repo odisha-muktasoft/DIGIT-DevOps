@@ -1,7 +1,7 @@
 # Common Labels
 labels:
   app: "egov-document-uploader"
-  group: "rainmaker"
+  group: "core"
 
 # Ingress Configs
 ingress:
@@ -29,6 +29,8 @@ appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx64m -Xms64m"
 java-args: "-Dspring.profiles.active=monitoring"
+memory_limits: "256Mi"
+cpu_limits: "100m"
 
 # Additional Container Envs
 env: |

@@ -20,14 +20,17 @@ initContainers:
 # Container Configs
 image:
   repository: "egov-localization"
-replicas: "2"
+replicas: "1"
 appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx256m -Xms256m"
+memory_limits: 512Mi
 healthChecks:
   enabled: true
   livenessProbePath: "/localization/health"
   readinessProbePath: "/localization/health"
+memory_limits: "512Mi"
+cpu_limits: "300m"
 
 # Additional Container Envs
 env: |

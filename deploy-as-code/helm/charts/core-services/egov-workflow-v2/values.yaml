@@ -1,7 +1,7 @@
 # Common Labels
 labels:
   app: "egov-workflow-v2"
-  group: "rainmaker"
+  group: "core"
 
 # Ingress Configs
 ingress:
@@ -27,9 +27,11 @@ healthChecks:
   readinessProbePath: "/egov-workflow-v2/health"
 appType: "java-spring"
 tracing-enabled: true
-heap: "-Xmx64m -Xms64m"
+heap: "-Xmx256m -Xms256m"
 java-args: "-Dspring.profiles.active=monitoring"
 workflow-statelevel: "true"
+memory_limits: "512Mi"
+cpu_limits: "250m"
 
 # Additional Container Envs
 env: |

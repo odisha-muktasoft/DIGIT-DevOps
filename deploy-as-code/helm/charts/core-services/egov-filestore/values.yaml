@@ -27,11 +27,13 @@ healthChecks:
 appType: "java-spring"
 tracing-enabled: true
 is-bucket-fixed: "true"
-fixed-bucketname: "egov-rainmaker"
+fixed-bucketname: "unified-dev-bucket-s3"
 heap: "-Xmx192m -Xms192m"
 file-storage-mount-path: "/filestore"
 is-nfs-enabled: false
 is-s3-enabled: true
+memory_limits: "512Mi"
+cpu_limits: "300m"
 
 persistence:
   enabled: false
@@ -49,7 +51,7 @@ env: |
   - name: TEMP_FOLDER_PATH
     value: "/tmp"
   - name: SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE
-    value: "250MB"
+    value: "6MB"
   - name: ISNFSSTORAGEENABLED
     value: {{ index .Values "is-nfs-enabled" | quote }}
   {{- if index .Values "is-nfs-enabled" }}
@@ -63,8 +65,6 @@ env: |
   - name: SOURCE_DISK
     value: "diskStorage"
   {{- end }}
-  - name: ISS3ENABLED
-    value: {{ index .Values "is-s3-enabled" | quote }}
   {{- if index .Values "is-s3-enabled" }}
   - name: ISS3ENABLED
     value: "true"
@@ -80,11 +80,6 @@ env: |
       secretKeyRef:
         key: secretkey
         name: minio
-  - name: MINIO_URL
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: minio-url
   {{else}}
   - name: AWS_KEY
     valueFrom:
@@ -96,8 +91,6 @@ env: |
       secretKeyRef:
         name: egov-filestore
         key: awssecretkey
-  - name: MINIO_URL
-    value: {{ index .Values "aws.s3.url" | quote }}
   {{- end }}
   {{- if index .Values "is-bucket-fixed" }}
   - name: IS_BUCKET_FIXED
@@ -111,6 +104,13 @@ env: |
     value: {{ index .Values "heap" | quote }}
   - name: ALLOWED_FORMATS_MAP
     value: {{ index .Values "allowed-file-formats-map" | quote }}
+  {{- if index .Values "minio-enabled" }}  
+  - name: MINIO_URL
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: minio-url
+  {{- end }}
   {{- if index .Values "filestore-url-validity" }}   
   - name: PRESIGNED_URL_EXPIRY_TIME_IN_SECS     
     value: {{ index .Values "filestore-url-validity" | quote }}   

@@ -1,7 +1,7 @@
 # Common Labels
 labels:
   app: "audit-service"
-  group: "rainmaker"
+  group: "core"
 
 # Ingress Configs
 ingress:
@@ -27,8 +27,10 @@ healthChecks:
   readinessProbePath: "/audit-service/health"
 appType: "java-spring"
 tracing-enabled: true
-heap: "-Xmx192m -Xms192m"
+heap: "-Xmx64m -Xms64m"
 java-args: "-Dspring.profiles.active=monitoring"
+memory_limits: "512Mi"
+cpu_limits: "200m"
 
 # Additional Container Envs
 env: |
