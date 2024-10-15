@@ -71,10 +71,10 @@ env: |
   - name: EGOV_INDEXER_ES_USERNAME
     valueFrom:
       secretKeyRef:
-        name: elasticsearch-master-credentials
+        name: elasticsearch-credential
         key: username
   - name: EGOV_INDEXER_ES_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: elasticsearch-master-credentials
+        name: elasticsearch-credential
         key: password 
