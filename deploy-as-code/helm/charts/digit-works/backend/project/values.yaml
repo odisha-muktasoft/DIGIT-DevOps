@@ -87,6 +87,8 @@ env: |
     value: "60"
   - name: SPRING_CACHE_AUTOEXPIRY
     value: "true"
+  - name: PROJECT_ATTENDANCE_FEATURE_ENABLED
+    value: false
   - name: PROJECT.MANAGEMENT.SYSTEM.KAFKA.CREATE.TOPIC
     value: "save-project"
   - name: PROJECT.MANAGEMENT.SYSTEM.KAFKA.UPDATE.TOPIC
