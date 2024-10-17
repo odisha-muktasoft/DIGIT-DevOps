@@ -110,4 +110,8 @@ env: |
   - name: STATE_LEVEL_TENANT_ID
     value: {{ index .Values "state-level-tenant-id" | quote }}
   {{- end }}
-  
+  - name: EGOV_MDMS_V2_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-mdms-service-v2 
