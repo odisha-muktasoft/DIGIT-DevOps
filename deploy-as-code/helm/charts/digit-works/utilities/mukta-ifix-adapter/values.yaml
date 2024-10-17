@@ -157,5 +157,8 @@ env: |
     value: redis.backbone
   - name: SPRING_REDIS_PORT
     value: "6379"
-
-  
+  - name: EGOV_MDMS_V2_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-mdms-service-v2
