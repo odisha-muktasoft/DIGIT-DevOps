@@ -51,6 +51,10 @@ env: |
   {{- if index .Values "java-enable-debug" }}
   - name: JAVA_ENABLE_DEBUG
     value: "true"
+  - name: SPRING_REDIS_HOST
+    value: redis.backbone
+  - name: SPRING_REDIS_PORT
+    value: "6379"
   {{- end }} 
   - name: WORKFLOW_HOST
     valueFrom:
@@ -69,7 +73,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: egov-mdms-service 
+        key: egov-mdms-service-v2 
   - name: SERVICES_ESINDEXER_HOST
     valueFrom:
       configMapKeyRef:
