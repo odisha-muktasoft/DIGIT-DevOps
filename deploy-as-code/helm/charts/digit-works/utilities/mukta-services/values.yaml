@@ -113,3 +113,9 @@ env: |
     value: "MUKTA_PDF_GEN_RECEIVE"
   - name: KAFKA_BULK_PDF_TOPIC
     value: "MUKTA_BULK_PDF_GEN"
+  - name: CONTRACT_SEARCH
+    value: "/contract/v1/_search"
+  - name: ESTIMATE_SEARCH
+    value: "/estimate/v1/_search"
+  - name: EXPENSE_CALCULATOR
+    value: "/expense-calculator/v1/_estimate"
