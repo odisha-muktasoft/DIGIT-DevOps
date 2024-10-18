@@ -156,3 +156,11 @@ env: |
       configMapKeyRef:
         name: egov-config
         key: egov-state-level-tenant-id
+  {{- if index .Values "egov-location-context-path" }}
+  - name: EGOV_LOCATION_CONTEXT_PATH
+    value: {{ index .Values "egov-location-context-path" | quote }}
+  {{- end }} 
+  {{- if index .Values "egov-location-endpoint" }}
+  - name: EGOV_LOCATION_ENDPOINT
+    value: {{ index .Values "egov-location-endpoint" | quote }}
+  {{- end }}
