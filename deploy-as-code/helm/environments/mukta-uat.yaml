@@ -222,6 +222,8 @@ organisation:
   sms-isAdditonalFieldRequired: true
   sms.isAdditonalFieldRequired: true
   notification-sms-enabled: "false"
+  egov-location-context-path: "/boundary-service/"
+  egov-location-endpoint: "/boundary/_search"
 
 bankaccounts:
   tracing-enabled: true
