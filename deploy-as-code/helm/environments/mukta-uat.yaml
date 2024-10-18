@@ -146,18 +146,7 @@ estimate-service:
   is-caching-enabled: true
   redis-expiry-time: 3600
 
-  
-attendance-service:
-  tracing-enabled: true
-  java-enable-debug: false
-  attendance-register-default-offset: 0
-  attendance-register-default-limit: 10
-  attendance-register-search-max-limit: 100
-  attendance-individual-service-integration-required: false
-  attendance-staff-service-integration-required: false
-  attendance-document-id-verification-required: false
-  attendance-register-open-search-enabled-roles: "SUPERUSER,EMPLOYEE_COMMON"
-  organisation-contact-details-update-topic: organisation.contact.details.update
+
 
 attendance:
   tracing-enabled: true
@@ -171,6 +160,7 @@ attendance:
   attendance-register-open-search-enabled-roles: "SUPERUSER,EMPLOYEE_COMMON,EMPLOYEE"
   organisation-contact-details-update-topic: organisation.contact.details.update
   contracts-revision-topic: "contracts-revision"
+  attendance-register-first-staff-insert-enabled: "false"
 
 contract-service:
   tracing-enabled: true
