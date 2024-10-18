@@ -248,8 +248,17 @@ individual:
   notification-sms-enabled: "false"
 
 works-management-service:
+  heap: "-Xmx512m -Xms512m"
+  memory_limits: 512Mi
   tracing-enabled: true
   java-enable-debug: true
+  egov-idgen-report-id-name: works.report.number
+  wms-kafka-report-create-topic: mukta-wms-payment-report-create
+  wms-kafka-report-update-topic: mukta-wms-payment-report-update
+  report-search-pagination-default-limit: 10
+  report-search-pagination-default-offset: 0
+  wms-payment-tracker-module: payment-tracker
+  wms-estimate-module: estimate
 
 sms-adapter:
   tracing-enabled: true
