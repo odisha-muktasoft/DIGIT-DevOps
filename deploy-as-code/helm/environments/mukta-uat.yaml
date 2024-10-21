@@ -160,7 +160,7 @@ attendance:
   attendance-register-open-search-enabled-roles: "SUPERUSER,EMPLOYEE_COMMON,EMPLOYEE"
   organisation-contact-details-update-topic: organisation.contact.details.update
   contracts-revision-topic: "contracts-revision"
-  attendance-register-first-staff-insert-enabled: "false"
+  attendance-register-first-staff-insert-enabled: "true"
 
 contract-service:
   tracing-enabled: true
