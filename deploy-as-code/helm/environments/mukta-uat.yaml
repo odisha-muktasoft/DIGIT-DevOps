@@ -638,7 +638,7 @@ ingress-nginx:
   controller:
     replicas: 1
     metrics:
-      enabled: false
+      enabled: true
       serviceMonitor:
         enabled: true
       prometheusRule:
@@ -995,15 +995,6 @@ oauth2-proxy:
       github_team = "mukta-uat"
       upstreams = [ "file:///dev/null" ]
 
-
-grafana:
-  dashboardsFolder: /work-dir/mukta-configs/configs/monitoring-dashboards
-  initContainers:
-    gitSync:
-      enabled: true
-      repo: "git@github.com:odisha-muktasoft/mukta-configs"
-      branch: "UAT"
-
   # minio:
   # mode: distributed
   # disableWebUI: false
@@ -1077,3 +1068,80 @@ kafka-ui:
         - name: mukta-uat
           bootstrapServers: kafka-kraft-controller-headless.kafka-kraft:9092
           readonly: true
+
+### Grafana >>>>>>>>>>>>>>>>>>>>
+grafana:
+  github:
+    allowed_organizations: ["egovernments"]
+    role_attribute_path: contains(groups[*], '@egovernments/devops') && 'Editor' || contains(groups[*], '@egovernments/mukta-uat') && 'Viewer'
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+### Prometheus & Alertmanager >>>>>>>>>>>>>>>>>>>>
+prometheus:
+  alertmanager:
+    enabled: false
+  externalLabels:
+    cluster: mukta-uat
+  additionalScrapeConfigs:
+    - job_name: 'nginx-ingress-metrics'
+      static_configs:
+        - targets: [ 'nginx-ingress-controller-metrics.egov:10254' ]
+    - job_name: 'blackbox'
+      metrics_path: /probe
+      params:
+        module: [ http_2xx ]
+      static_configs:
+        - targets:
+            - https://mukta-uat.digit.org/
+            - https://mukta-uat.digit.org/works-ui/
+            - https://mukta-uat.digit.org/jupyter/hub/
+            - https://mukta-uat.digit.org/kibana-v8/
+            - https://mukta-uat.digit.org/pgadmin/
+      relabel_configs:
+        - source_labels: [ __address__ ]
+          target_label: __param_target
+        - source_labels: [ __param_target ]
+          target_label: instance
+        - target_label: __address__
+          replacement: prometheus-blackbox-exporter:9115
+    - job_name: 'blackbox_exporter'
+      static_configs:
+        - targets: [ 'prometheus-blackbox-exporter:9115' ]
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+### loki-stack >>>>>>>>>>>>>>>>>>>>
+loki:
+  persistence:
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+    size: 30Gi
+  serviceAccount:
+    annotations: { }
+  additionalConfigs:
+    schema_config:
+      configs:
+        - from: 2020-10-24
+          store: boltdb-shipper
+          object_store: filesystem
+          schema: v11
+          index:
+            prefix: index_
+            period: 24h
+    storage_config:
+      boltdb_shipper:
+        active_index_directory: /data/loki/index
+        cache_location: /data/loki/index_cache
+        shared_store: filesystem
+        cache_ttl: 24h
+      filesystem:
+        directory: /data/loki/chunks
+    compactor:
+      working_directory: /data/loki/boltdb-shipper-compactor
+      shared_store: filesystem
+      retention_enabled: true
+      compaction_interval: 168h
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 168h  # 7 days
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
