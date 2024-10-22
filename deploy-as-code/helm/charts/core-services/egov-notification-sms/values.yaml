@@ -191,7 +191,5 @@ env: |
   - name: KAFKA_TOPICS_ERROR_SMS
     value: {{ index .Values "kafka.topics.error.sms" | quote }} 
   {{- end }}
-  {{- if index .Values "kafka.topics.mukta.notification.sms.name" }}
   - name: KAFKA_TOPICS_MUKTA_NOTIFICATION_SMS_NAME
-    value: {{ index .Values "kafka.topics.mukta.notification.sms.name" | quote }} 
-  {{- end }}  
+    value: works.notification.sms
