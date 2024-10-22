@@ -1092,7 +1092,6 @@ prometheus:
         module: [ http_2xx ]
       static_configs:
         - targets:
-            - https://mukta-uat.digit.org/
             - https://mukta-uat.digit.org/works-ui/
             - https://mukta-uat.digit.org/jupyter/hub/
             - https://mukta-uat.digit.org/kibana-v8/

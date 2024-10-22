@@ -1174,7 +1174,6 @@ prometheus:
         module: [ http_2xx ]
       static_configs:
         - targets:
-            - https://mukta.odisha.gov.in/
             - https://mukta.odisha.gov.in/works-ui/
             - https://mukta.odisha.gov.in/jupyter/hub/
             - https://mukta.odisha.gov.in/kibana-v8/
