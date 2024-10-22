@@ -1154,8 +1154,8 @@ statements:
 ### Grafana >>>>>>>>>>>>>>>>>>>>
 grafana:
   github:
-    allowed_organizations: ["egovernments"]
-    role_attribute_path: contains(groups[*], '@egovernments/devops') && 'Editor' || contains(groups[*], '@egovernments/mukta-prod') && 'Viewer'
+    allowed_organizations: ["odisha-muktasoft"]
+    role_attribute_path: contains(groups[*], '@odisha-muktasoft/mukta-prod') && 'Viewer'
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 ### Prometheus & Alertmanager >>>>>>>>>>>>>>>>>>>>
