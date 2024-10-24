@@ -12,6 +12,7 @@ cluster-configs:
         cert-manager,
         egov,
         works,
+        jupyter,
         es-cluster,
         es-upgrade,
         kafka-cluster,
