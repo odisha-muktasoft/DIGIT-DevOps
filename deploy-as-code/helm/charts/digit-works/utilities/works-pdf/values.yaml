@@ -128,7 +128,12 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: egov-hrms      
+        key: egov-hrms
+  - name: EGOV_WMS_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: works-management-service
   - name: CONTEXT_PATH
     value: "/egov-pdf" 
   - name: PROJECT_DETAILS_TEMPLATE

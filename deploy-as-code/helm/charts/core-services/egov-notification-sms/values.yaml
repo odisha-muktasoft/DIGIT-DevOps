@@ -190,4 +190,11 @@ env: |
   {{- if index .Values "kafka.topics.error.sms" }}
   - name: KAFKA_TOPICS_ERROR_SMS
     value: {{ index .Values "kafka.topics.error.sms" | quote }} 
-  {{- end }}       
+  {{- end }}
+  - name: KAFKA_TOPICS_MUKTA_NOTIFICATION_SMS_NAME
+    value: works.notification.sms
+  - name: EGOV_MDMS_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-mdms-service  
