@@ -152,7 +152,7 @@ cluster-configs:
       name: program-service
 
     elasticsearch:
-      namespace: [ es-upgrade, es-upgrade-infra, monitoring, kafka-cluster, egov, works ]
+      namespace: [ es-upgrade, monitoring, kafka-cluster, egov, works ]
       name: elasticsearch-credential
 
     elasticsearch-certificate:
